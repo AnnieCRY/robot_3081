@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_POSE_H_
-#define SRC_POSE_H_
+#ifndef ITERATION1_SRC_POSE_H_
+#define ITERATION1_SRC_POSE_H_
 
 /*******************************************************************************
  * Includes
@@ -70,4 +70,4 @@ constexpr double rad2deg(double rad) { return rad * 180.0 / M_PI; }
 
 NAMESPACE_END(csci3081);
 
-#endif /* SRC_POSE_H_ */
+#endif  // ITERATION1_SRC_POSE_H_

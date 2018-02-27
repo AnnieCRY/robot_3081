@@ -9,6 +9,7 @@
  ******************************************************************************/
 #include <vector>
 #include <iostream>
+#include <string>
 
 #include "src/graphics_arena_viewer.h"
 #include "src/arena_params.h"
@@ -68,7 +69,7 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
   } else {
     playing_button_->setCaption("Pause");
   }
-  paused_=!paused_;
+  paused_ = !paused_;
 }
 
 void GraphicsArenaViewer::OnRestartBtnPressed() {
@@ -89,18 +90,18 @@ void GraphicsArenaViewer::OnSpecialKeyDown(int key,
     Communication key_value = kNone;
     switch (key) {
       case GLFW_KEY_LEFT:
-      key_value=kKeyLeft;
+      key_value = kKeyLeft;
       break;
       case GLFW_KEY_RIGHT:
-      key_value=kKeyRight;
+      key_value = kKeyRight;
       break;
       case GLFW_KEY_UP:
-      key_value=kKeyUp;
+      key_value = kKeyUp;
       break;
       case GLFW_KEY_DOWN:
-      key_value=kKeyDown;
+      key_value = kKeyDown;
       break;
-      default: key_value=kNone;
+      default: key_value = kNone;
     }
   controller_->AcceptCommunication(key_value);
 }
@@ -180,19 +181,17 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
   } /* for(i..) */
   DrawRobot(ctx, arena_->robot());
 
-  std::string won_message_="You Won!";
-  std::string lost_message_="Lost...Try Again!";
-  if (arena_->get_game_status() == WON){
+  std::string won_message_ = "You Won!";
+  std::string lost_message_ = "Lost...Try Again!";
+  if (arena_->get_game_status() == WON) {
     nvgFontSize(ctx, 100.0f);
     nvgText(ctx, 250.0, 150.0, won_message_.c_str(), nullptr);
     nvgRestore(ctx);
-  }
-  else if(arena_->get_game_status() == LOST){
+  } else if (arena_->get_game_status() == LOST) {
     nvgFontSize(ctx, 100.0f);
     nvgText(ctx, 350.0, 150.0, lost_message_.c_str(), nullptr);
     nvgRestore(ctx);
   }
-
 }
 
 NAMESPACE_END(csci3081);

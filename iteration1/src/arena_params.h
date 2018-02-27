@@ -5,8 +5,8 @@
  *
  */
 
-#ifndef SRC_ARENA_PARAMS_H_
-#define SRC_ARENA_PARAMS_H_
+#ifndef ITERATION1_SRC_ARENA_PARAMS_H_
+#define ITERATION1_SRC_ARENA_PARAMS_H_
 
 /*******************************************************************************
  * Includes
@@ -37,4 +37,4 @@ struct arena_params {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_ARENA_PARAMS_H_
+#endif  // ITERATION1_SRC_ARENA_PARAMS_H_

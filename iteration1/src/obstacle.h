@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_OBSTACLE_H_
-#define SRC_OBSTACLE_H_
+#ifndef ITERATION1_SRC_OBSTACLE_H_
+#define ITERATION1_SRC_OBSTACLE_H_
 
 /*******************************************************************************
  * Includes
@@ -66,11 +66,11 @@ class Obstacle : public ArenaMobileEntity {
    */
   void Reset() override;
 
-  MotionHandlerObstacle get_motion_handler() {return motion_handler_;}
+  MotionHandlerObstacle get_motion_handler() { return motion_handler_;}
 
-  MotionBehaviorDifferential get_motion_behavior(){return motion_behavior_;}
+  MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_;}
 
-  private:
+ private:
     // Manages pose and wheel velocities that change with time and collisions.
     MotionHandlerObstacle motion_handler_;
     // Calculates changes in pose based on elapsed time and wheel velocities.
@@ -81,4 +81,4 @@ class Obstacle : public ArenaMobileEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_OBSTACLE_H_
+#endif  // ITERATION1_SRC_OBSTACLE_H_

@@ -50,15 +50,16 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  //stop when collides
+  // stop when collides
   motion_handler_.set_velocity(0.0, 0.0);
-  if (object_type != kBase)
+  if (object_type != kBase) {
     lives_--;
-  else if (object_type == kBase){
+  } else if (object_type == kBase) {
     Base* base_temp_ = dynamic_cast<Base*>(object);
-    object->set_color({255,159,0});
-    if (!base_temp_->IsCaptured())
+    object->set_color({255, 159, 0});
+    if (!base_temp_->IsCaptured()) {
       base_temp_->set_captured(true);
+    }
   }
   sensor_touch_->HandleCollision(object_type, object);
 }

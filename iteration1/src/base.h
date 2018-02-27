@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_BASE_H_
-#define SRC_BASE_H_
+#ifndef ITERATION1_SRC_BASE_H_
+#define ITERATION1_SRC_BASE_H_
 
 /*******************************************************************************
  * Includes
@@ -72,10 +72,10 @@ class Base : public ArenaImmobileEntity {
    */
   void set_captured(bool state) { captured_ = state; }
 
-private:
+ private:
   bool captured_;
 };
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_BASE_H_
+#endif  // ITERATION1_SRC_BASE_H_

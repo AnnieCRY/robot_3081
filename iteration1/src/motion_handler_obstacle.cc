@@ -18,13 +18,6 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-
-//void MotionHandlerObstacle::TurnRight() {
-//  set_velocity(
-//    clamp_vel(get_velocity().left  + get_angle_delta()),
-//    clamp_vel(get_velocity().right - get_angle_delta()));
-//}
-
 void MotionHandlerObstacle::IncreaseSpeed() {
   set_velocity(
     clamp_vel(get_velocity().left  + get_speed_delta()),

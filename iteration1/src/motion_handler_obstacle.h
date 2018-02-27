@@ -4,8 +4,8 @@
  * @copyright Ruoyun Chen
  */
 
-#ifndef SRC_MOTION_HANDLER_OBSTACLE_H_
-#define SRC_MOTION_HANDLER_OBSTACLE_H_
+#ifndef ITERATION1_SRC_MOTION_HANDLER_OBSTACLE_H_
+#define ITERATION1_SRC_MOTION_HANDLER_OBSTACLE_H_
 
 /*******************************************************************************
  * Includes
@@ -40,7 +40,8 @@ class MotionHandlerObstacle : public MotionHandler {
       : MotionHandler(ent) {}
 
   MotionHandlerObstacle(const MotionHandlerObstacle& other) = default;
-  MotionHandlerObstacle& operator=(const MotionHandlerObstacle& other) = default;
+  MotionHandlerObstacle& operator =
+(const MotionHandlerObstacle& other) = default;
 
   /**
   * @brief Update the speed and the pose angle according to the sensor readings.
@@ -65,15 +66,14 @@ class MotionHandlerObstacle : public MotionHandler {
   /**
    * @brief Turn the entity to the right by angle_delta (in degrees?)
    */
-  //void TurnRight() override;
 
 
  private:
   double clamp_vel(double vel);
-	bool turn_flag_ = false;
-	int turn_step_ = 0;
+  bool turn_flag_ = false;
+  int turn_step_ = 0;
 };
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_MOTION_HANDLER_OBSTACLE_H_
+#endif  // ITERATION1_SRC_MOTION_HANDLER_OBSTACLE_H_

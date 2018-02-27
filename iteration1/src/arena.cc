@@ -55,7 +55,7 @@ void Arena::AddEntity(EntityType type, int quantity) {
 }
 
 void Arena::Reset() {
-  //std::cout<<"reset"<<std::endl;
+  // std::cout<<"reset"<<std::endl;
   for (auto ent : entities_) {
     ent->Reset();
   } /* for(ent..) */
@@ -86,20 +86,20 @@ void Arena::UpdateEntitiesTimestep() {
   /*
    * Check for win/loss
    */
-   if (robot_->get_lives() == 0){
+  if (robot_->get_lives() == 0) {
      game_status_ = LOST;
-   } else {
+  } else {
      int base_captured_num_ = 0;
      for (auto &ent2 : entities_) {
        if (ent2->get_type() == kBase
-       && dynamic_cast<Base*>(ent2)->IsCaptured()){
+       && dynamic_cast<Base*>(ent2)->IsCaptured()) {
          base_captured_num_++;
        }
      }
-     if (base_captured_num_ == 3){
+     if (base_captured_num_ == 3) {
        game_status_ = WON;
      }
-   }
+  }
 
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
@@ -192,7 +192,7 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
     double distance_between = sqrt(delta_x*delta_x + delta_y*delta_y);
     double distance_to_move =
       mobile_e->get_radius() + other_e->get_radius() - distance_between + 5;
-    double angle = atan2(delta_y,delta_x);
+    double angle = atan2(delta_y, delta_x);
     mobile_e->set_position(
       mobile_e->get_pose().x+cos(-angle)*distance_to_move,
       mobile_e->get_pose().y+sin(-angle)*distance_to_move);

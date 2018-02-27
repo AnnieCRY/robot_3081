@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_RGB_COLOR_H_
-#define SRC_RGB_COLOR_H_
+#ifndef ITERATION1_SRC_RGB_COLOR_H_
+#define ITERATION1_SRC_RGB_COLOR_H_
 
 /*******************************************************************************
  * Includes
@@ -65,4 +65,4 @@ struct RgbColor {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_RGB_COLOR_H_
+#endif  // ITERATION1_SRC_RGB_COLOR_H_

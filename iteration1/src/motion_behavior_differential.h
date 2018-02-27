@@ -4,8 +4,8 @@
  * @copyright 2018 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
-#define SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
+#ifndef ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
+#define ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
 
 /*******************************************************************************
  * Includes
@@ -31,7 +31,7 @@ class MotionBehaviorDifferential : public MotionBehavior {
  public:
   explicit MotionBehaviorDifferential(ArenaMobileEntity * entity)
       : MotionBehavior(entity) , radius_(entity_->get_radius()),
-        temp_vel_(0,0) {
+        temp_vel_(0, 0) {
   }
 
   MotionBehaviorDifferential(const MotionBehaviorDifferential& other) = default;
@@ -84,4 +84,4 @@ class MotionBehaviorDifferential : public MotionBehavior {
 
 NAMESPACE_END(csci3081);
 
-#endif  /* SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_ */
+#endif  // ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_

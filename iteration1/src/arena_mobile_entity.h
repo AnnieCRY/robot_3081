@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_ARENA_MOBILE_ENTITY_H_
-#define SRC_ARENA_MOBILE_ENTITY_H_
+#ifndef ITERATION1_SRC_ARENA_MOBILE_ENTITY_H_
+#define ITERATION1_SRC_ARENA_MOBILE_ENTITY_H_
 
 /*******************************************************************************
  * Includes
@@ -69,4 +69,4 @@ class ArenaMobileEntity : public ArenaEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif /* SRC_ARENA_MOBILE_ENTITY_H_ */
+#endif  // ITERATION1_SRC_ARENA_MOBILE_ENTITY_H_

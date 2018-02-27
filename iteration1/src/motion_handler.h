@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_MOTION_HANDLER_H_
-#define SRC_MOTION_HANDLER_H_
+#ifndef ITERATION1_SRC_MOTION_HANDLER_H_
+#define ITERATION1_SRC_MOTION_HANDLER_H_
 
 /*******************************************************************************
  * Includes
@@ -39,7 +39,7 @@ class MotionHandler {
    * @brief Constructor.
    */
   explicit MotionHandler(ArenaMobileEntity * ent)
-    : velocity_(0,0), entity_(ent) {}
+    : velocity_(0, 0), entity_(ent) {}
 
   virtual ~MotionHandler() {}
 
@@ -144,4 +144,4 @@ class MotionHandler {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_MOTION_HANDLER_H_
+#endif  // ITERATION1_SRC_MOTION_HANDLER_H_

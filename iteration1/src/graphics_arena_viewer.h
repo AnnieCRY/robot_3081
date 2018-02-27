@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_GRAPHICS_ARENA_VIEWER_H_
-#define SRC_GRAPHICS_ARENA_VIEWER_H_
+#ifndef ITERATION1_SRC_GRAPHICS_ARENA_VIEWER_H_
+#define ITERATION1_SRC_GRAPHICS_ARENA_VIEWER_H_
 
 /*******************************************************************************
  * Includes
@@ -240,4 +240,4 @@ class GraphicsArenaViewer : public GraphicsApp {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_GRAPHICS_ARENA_VIEWER_H_
+#endif  // ITERATION1_SRC_GRAPHICS_ARENA_VIEWER_H_
