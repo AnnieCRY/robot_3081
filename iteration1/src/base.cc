@@ -29,7 +29,10 @@ Base::Base() : ArenaImmobileEntity(), captured_(false) {
  * Member Functions
  ******************************************************************************/
 void Base::Reset() {
-  set_pose(BASE_INIT_POS);
+  set_pose({static_cast<double>((30 + (random() % 19) * 50)),
+        static_cast<double>((30 + (random() % 14) * 50))});
+  set_color(BASE_COLOR);
+  captured_ = false;
 } /* Reset */
 
 NAMESPACE_END(csci3081);

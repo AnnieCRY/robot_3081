@@ -30,10 +30,17 @@ void MotionHandlerObstacle::DecreaseSpeed() {
     clamp_vel(get_velocity().right - get_speed_delta()));
 }
 
-void MotionHandlerObstacle::UpdateVelocity() {
-  if (entity_->get_touch_sensor()->get_output()) {
-    entity_->RelativeChangeHeading(+180);
-  }
+
+void MotionHandlerObstacle::TurnLeft() {
+  set_velocity(
+    clamp_vel(get_velocity().left  - get_angle_delta()),
+    clamp_vel(get_velocity().right + get_angle_delta()));
+}
+
+void MotionHandlerObstacle::TurnRight() {
+  set_velocity(
+    clamp_vel(get_velocity().left  + get_angle_delta()),
+    clamp_vel(get_velocity().right - get_angle_delta()));
 }
 
 double MotionHandlerObstacle::clamp_vel(double vel) {
@@ -49,5 +56,20 @@ double MotionHandlerObstacle::clamp_vel(double vel) {
   }
   return clamped;
 } /* clamp_vel() */
+
+void MotionHandlerObstacle::UpdateVelocity() {
+  if (entity_->get_touch_sensor()->get_output()) {
+    turn_flag_ = true;
+    turn_step_ = 0;
+  }
+  if(turn_flag_ && turn_step_< 10){
+    TurnLeft();
+    turn_step_++;
+  } else{
+    set_velocity(5,5);
+    turn_flag_ = false;
+    turn_step_ = 0;
+  }
+}
 
 NAMESPACE_END(csci3081);

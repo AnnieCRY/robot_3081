@@ -70,6 +70,7 @@ Communication Controller::ConvertComm(Communication com) {
     com = kTurnRight;
     break;
     case (kNewGame) :
+    com = kReset;
     break;
     com = kReset;
     case (kPlay) :

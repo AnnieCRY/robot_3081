@@ -96,7 +96,7 @@ class Robot : public ArenaMobileEntity {
   */
   void TurnLeft();
 
-  int get_lives() { return lives_; }
+  int get_lives()const { return lives_; }
 
   void set_lives(int l) { lives_ = l; }
 
@@ -112,6 +112,9 @@ class Robot : public ArenaMobileEntity {
   // Lives are decremented when the robot collides with anything.
   // When all the lives are gone, the game is lost.
   int lives_;
+
+  int time_count_;
+  bool mercy_flag_;
 };
 
 NAMESPACE_END(csci3081);

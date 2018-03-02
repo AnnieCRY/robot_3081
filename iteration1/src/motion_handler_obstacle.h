@@ -66,6 +66,8 @@ class MotionHandlerObstacle : public MotionHandler {
   /**
    * @brief Turn the entity to the right by angle_delta (in degrees?)
    */
+  void TurnLeft() override;
+  void TurnRight() override;
 
 
  private:

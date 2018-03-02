@@ -30,7 +30,7 @@ Arena::Arena(const struct arena_params *const params)
       game_status_(PLAYING) {
   AddRobot();
   AddEntity(kBase, 3);
-  AddEntity(kObstacle, 4);
+  AddEntity(kObstacle, 6);
 }
 
 Arena::~Arena() {
@@ -50,7 +50,13 @@ void Arena::AddRobot() {
 
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
-    entities_.push_back(factory_->CreateEntity(type));
+    if(type == kObstacle){
+	  Obstacle* obstacle_= dynamic_cast<Obstacle *>(factory_->CreateEntity(kObstacle));
+	  entities_.push_back(obstacle_);
+	  mobile_entities_.push_back(obstacle_);
+    } else {
+	  entities_.push_back(factory_->CreateEntity(type));
+	}
   }
 }
 
@@ -108,7 +114,12 @@ void Arena::UpdateEntitiesTimestep() {
     EntityType wall = GetCollisionWall(ent1);
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
-      robot_->HandleCollision(wall);
+      if(ent1->get_type() == kRobot){
+        robot_-> HandleCollision(wall);
+      } else {
+        Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
+        ob_-> HandleCollision(wall);
+      }
     }
     /* Determine if that mobile entity is colliding with any other entity.
     * Adjust the position accordingly so they don't overlap.
@@ -117,7 +128,12 @@ void Arena::UpdateEntitiesTimestep() {
       if (ent2 == ent1) { continue; }
       if (IsColliding(ent1, ent2)) {
         AdjustEntityOverlap(ent1, ent2);
-        robot_->HandleCollision(ent2->get_type(), ent2);
+        if (ent1->get_type() == kRobot){
+          robot_->HandleCollision(ent2->get_type(), ent2);
+        } else {
+          Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
+          ob_-> HandleCollision(ent2->get_type(), ent2);
+        }
       }
     }
   }
@@ -192,10 +208,10 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
     double distance_between = sqrt(delta_x*delta_x + delta_y*delta_y);
     double distance_to_move =
       mobile_e->get_radius() + other_e->get_radius() - distance_between + 5;
-    double angle = atan2(delta_y, delta_x);
+    double angle = atan(delta_y/delta_x);
     mobile_e->set_position(
-      mobile_e->get_pose().x+cos(-angle)*distance_to_move,
-      mobile_e->get_pose().y+sin(-angle)*distance_to_move);
+      mobile_e->get_pose().x+cos(angle)*distance_to_move,
+      mobile_e->get_pose().y+sin(angle)*distance_to_move);
 }
 
 // Accept communication from the controller. Dispatching as appropriate.
@@ -215,6 +231,9 @@ void Arena::AcceptCommand(Communication com) {
     break;
     case(kTurnRight):
     robot_->TurnRight();
+    break;
+    case(kReset):
+    Reset();
     break;
     case(kPlay):
     case(kPause):

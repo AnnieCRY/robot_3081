@@ -69,6 +69,7 @@ Obstacle* EntityFactory::CreateObstacle() {
   obstacle->set_radius(
     static_cast<double>(OBSTACLE_MIN_RADIUS +
       random() % (OBSTACLE_MAX_RADIUS - OBSTACLE_MIN_RADIUS)));
+  obstacle->set_heading(random() % 360);
   ++entity_count_;
   ++obstacle_count_;
   obstacle->set_id(obstacle_count_);

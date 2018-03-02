@@ -56,7 +56,9 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 // This is the primary driver for state change in the arena.
 // It will be called at each iteration of nanogui::mainloop()
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
-  controller_->AdvanceTime(dt);
+  if(!paused_){
+    controller_->AdvanceTime(dt);
+  }
 }
 
 /*******************************************************************************
@@ -134,7 +136,8 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx, 0.0, 10.0, robot->get_name().c_str(), nullptr);
+  std::string robot_message_ = robot->get_name() + " " + std::to_string(robot->get_lives());
+  nvgText(ctx, 0.0, 10.0, robot_message_.c_str(), nullptr);
   nvgRestore(ctx);
   nvgRestore(ctx);
 }
@@ -187,10 +190,12 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
     nvgFontSize(ctx, 100.0f);
     nvgText(ctx, 250.0, 150.0, won_message_.c_str(), nullptr);
     nvgRestore(ctx);
+    paused_ = true;
   } else if (arena_->get_game_status() == LOST) {
     nvgFontSize(ctx, 100.0f);
     nvgText(ctx, 350.0, 150.0, lost_message_.c_str(), nullptr);
     nvgRestore(ctx);
+    paused_ = true;
   }
 }
 
