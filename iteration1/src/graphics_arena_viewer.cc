@@ -56,7 +56,7 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 // This is the primary driver for state change in the arena.
 // It will be called at each iteration of nanogui::mainloop()
 void GraphicsArenaViewer::UpdateSimulation(double dt) {
-  if(!paused_){
+  if (!paused_) {
     controller_->AdvanceTime(dt);
   }
 }
@@ -136,7 +136,8 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  std::string robot_message_ = robot->get_name() + " " + std::to_string(robot->get_lives());
+  std::string robot_message_ = robot->get_name() +
+  " " + std::to_string(robot->get_lives());
   nvgText(ctx, 0.0, 10.0, robot_message_.c_str(), nullptr);
   nvgRestore(ctx);
   nvgRestore(ctx);

@@ -50,13 +50,14 @@ void Arena::AddRobot() {
 
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
-    if(type == kObstacle){
-	  Obstacle* obstacle_= dynamic_cast<Obstacle *>(factory_->CreateEntity(kObstacle));
-	  entities_.push_back(obstacle_);
-	  mobile_entities_.push_back(obstacle_);
+    if (type == kObstacle) {
+      Obstacle* obstacle_ =
+      dynamic_cast<Obstacle *>(factory_->CreateEntity(kObstacle));
+      entities_.push_back(obstacle_);
+      mobile_entities_.push_back(obstacle_);
     } else {
-	  entities_.push_back(factory_->CreateEntity(type));
-	}
+      entities_.push_back(factory_->CreateEntity(type));
+    }
   }
 }
 
@@ -114,7 +115,7 @@ void Arena::UpdateEntitiesTimestep() {
     EntityType wall = GetCollisionWall(ent1);
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
-      if(ent1->get_type() == kRobot){
+      if (ent1->get_type() == kRobot) {
         robot_-> HandleCollision(wall);
       } else {
         Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
@@ -128,7 +129,7 @@ void Arena::UpdateEntitiesTimestep() {
       if (ent2 == ent1) { continue; }
       if (IsColliding(ent1, ent2)) {
         AdjustEntityOverlap(ent1, ent2);
-        if (ent1->get_type() == kRobot){
+        if (ent1->get_type() == kRobot) {
           robot_->HandleCollision(ent2->get_type(), ent2);
         } else {
           Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
@@ -208,7 +209,7 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
     double distance_between = sqrt(delta_x*delta_x + delta_y*delta_y);
     double distance_to_move =
       mobile_e->get_radius() + other_e->get_radius() - distance_between + 5;
-    double angle = atan(delta_y/delta_x);
+    double angle = atan2(delta_y, delta_x);
     mobile_e->set_position(
       mobile_e->get_pose().x+cos(angle)*distance_to_move,
       mobile_e->get_pose().y+sin(angle)*distance_to_move);

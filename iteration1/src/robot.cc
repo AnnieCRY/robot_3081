@@ -10,7 +10,6 @@
 #include "src/robot.h"
 #include "src/params.h"
 
-#include <ctime>
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -43,9 +42,9 @@ void Robot::TimestepUpdate(unsigned int dt) {
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
 
-  if(mercy_flag_ && time_count_ <20){
+  if (mercy_flag_ && time_count_ <20) {
     time_count_++;
-    if (time_count_%2 ==0){
+    if (time_count_%2 ==0) {
       set_color({255, 255, 0});
     } else {
       set_color({0, 0, 0});
@@ -64,7 +63,7 @@ void Robot::Reset() {
   motion_handler_.set_max_speed(ROBOT_MAX_SPEED);
   motion_handler_.set_max_angle(ROBOT_MAX_ANGLE);
   lives_ = 9;
-  motion_handler_.set_velocity(0,0);
+  motion_handler_.set_velocity(0, 0);
   sensor_touch_->Reset();
 } /* Reset() */
 
@@ -72,7 +71,7 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   // stop when collides
   motion_handler_.set_velocity(0.0, 0.0);
   if (object_type != kBase) {
-    if (!mercy_flag_){
+    if (!mercy_flag_) {
       lives_--;
       mercy_flag_ = true;
     }

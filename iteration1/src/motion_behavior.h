@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_MOTION_BEHAVIOR_H_
-#define ITERATION1_SRC_MOTION_BEHAVIOR_H_
+#ifndef SRC_MOTION_BEHAVIOR_H_
+#define SRC_MOTION_BEHAVIOR_H_
 
 /*******************************************************************************
  * Includes
@@ -61,4 +61,4 @@ class MotionBehavior {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_MOTION_BEHAVIOR_H_
+#endif  // SRC_MOTION_BEHAVIOR_H_

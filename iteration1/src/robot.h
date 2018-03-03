@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_ROBOT_H_
-#define ITERATION1_SRC_ROBOT_H_
+#ifndef SRC_ROBOT_H_
+#define SRC_ROBOT_H_
 
 /*******************************************************************************
  * Includes
@@ -119,4 +119,4 @@ class Robot : public ArenaMobileEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_ROBOT_H_
+#endif  // SRC_ROBOT_H_

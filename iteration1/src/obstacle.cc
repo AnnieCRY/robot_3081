@@ -32,7 +32,8 @@ void Obstacle::TimestepUpdate(unsigned int dt) {
   sensor_touch_->Reset();
 }
 void Obstacle::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  if(object_type == kObstacle || object_type == kRobot || object_type == kBase){
+  if (object_type == kObstacle || object_type == kRobot
+  || object_type == kBase) {
     sensor_touch_->HandleCollision(object_type, object);
   } else {
     RelativeChangeHeading(+180);
@@ -43,8 +44,5 @@ void Obstacle::Reset() {
     set_pose({static_cast<double>((50 + (random() % 19) * 50)),
           static_cast<double>((50 + (random() % 14) * 50))});
     set_heading(random()% 360);
-    //motion_handler_.set_max_speed(ROBOT_MAX_SPEED);
-    //motion_handler_.set_max_angle(ROBOT_MAX_ANGLE);
-    //sensor_touch_->Reset();
 }
 NAMESPACE_END(csci3081);

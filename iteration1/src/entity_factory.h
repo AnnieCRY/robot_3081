@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_ENTITY_FACTORY_H_
-#define ITERATION1_SRC_ENTITY_FACTORY_H_
+#ifndef SRC_ENTITY_FACTORY_H_
+#define SRC_ENTITY_FACTORY_H_
 
 /*******************************************************************************
  * Includes
@@ -94,4 +94,4 @@ class EntityFactory {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_ENTITY_FACTORY_H_
+#endif  // SRC_ENTITY_FACTORY_H_

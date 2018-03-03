@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_ENTITY_TYPE_H_
-#define ITERATION1_SRC_ENTITY_TYPE_H_
+#ifndef SRC_ENTITY_TYPE_H_
+#define SRC_ENTITY_TYPE_H_
 
 /*******************************************************************************
  * Includes
@@ -25,4 +25,4 @@ enum EntityType {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_ENTITY_TYPE_H_
+#endif  // SRC_ENTITY_TYPE_H_

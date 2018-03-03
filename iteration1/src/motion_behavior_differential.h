@@ -4,8 +4,8 @@
  * @copyright 2018 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
-#define ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
+#ifndef SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
+#define SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
 
 /*******************************************************************************
  * Includes
@@ -84,4 +84,4 @@ class MotionBehaviorDifferential : public MotionBehavior {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_
+#endif  // SRC_MOTION_BEHAVIOR_DIFFERENTIAL_H_

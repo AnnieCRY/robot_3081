@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_SENSOR_TOUCH_H_
-#define ITERATION1_SRC_SENSOR_TOUCH_H_
+#ifndef SRC_SENSOR_TOUCH_H_
+#define SRC_SENSOR_TOUCH_H_
 
 /*******************************************************************************
  * Includes
@@ -90,4 +90,4 @@ class SensorTouch {
 
 NAMESPACE_END(csci3081);
 
-#endif  // ITERATION1_SRC_SENSOR_TOUCH_H_
+#endif  // SRC_SENSOR_TOUCH_H_

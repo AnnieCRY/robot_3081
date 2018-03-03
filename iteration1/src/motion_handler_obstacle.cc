@@ -62,11 +62,11 @@ void MotionHandlerObstacle::UpdateVelocity() {
     turn_flag_ = true;
     turn_step_ = 0;
   }
-  if(turn_flag_ && turn_step_< 10){
+  if (turn_flag_ && turn_step_< 10) {
     TurnLeft();
     turn_step_++;
-  } else{
-    set_velocity(5,5);
+  } else {
+    set_velocity(5, 5);
     turn_flag_ = false;
     turn_step_ = 0;
   }

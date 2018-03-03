@@ -4,8 +4,8 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef ITERATION1_SRC_PARAMS_H_
-#define ITERATION1_SRC_PARAMS_H_
+#ifndef SRC_PARAMS_H_
+#define SRC_PARAMS_H_
 
 /*******************************************************************************
  * Includes
@@ -80,4 +80,4 @@
 #define OBSTACLE_COLOR \
   { 255, 255, 255 }
 
-#endif  // ITERATION1_SRC_PARAMS_H_
+#endif  // SRC_PARAMS_H_
