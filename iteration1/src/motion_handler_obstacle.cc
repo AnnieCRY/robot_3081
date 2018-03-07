@@ -1,7 +1,7 @@
 /**
  * @file motion_handler_obstacle.cc
  *
- * @copyright 2018 3081 Staff, All rights reserved.
+ * @copyright 2018 3081 Ruoyun, All rights reserved.
  */
 
 /*******************************************************************************
@@ -62,10 +62,12 @@ void MotionHandlerObstacle::UpdateVelocity() {
     turn_flag_ = true;
     turn_step_ = 0;
   }
+  // if obstacle collides with other objects, it will turn left 10 times
   if (turn_flag_ && turn_step_< 10) {
     TurnLeft();
     turn_step_++;
   } else {
+    // after it turns, it will go straight util the next collision
     set_velocity(5, 5);
     turn_flag_ = false;
     turn_step_ = 0;

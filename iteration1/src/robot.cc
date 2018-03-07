@@ -42,12 +42,13 @@ void Robot::TimestepUpdate(unsigned int dt) {
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
 
+  //  have robot flash in collision during 2 seconds
   if (mercy_flag_ && time_count_ <20) {
     time_count_++;
     if (time_count_%2 ==0) {
       set_color({255, 255, 0});
     } else {
-      set_color({0, 0, 0});
+      set_color(ROBOT_COLOR);
     }
   } else if (mercy_flag_ && time_count_ >=20) {
     mercy_flag_ = false;
@@ -71,6 +72,8 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   // stop when collides
   motion_handler_.set_velocity(0.0, 0.0);
   if (object_type != kBase) {
+    // if collidsion, then mercy_flag_ is true for 2 seconds
+    //  and only lose life when mercy_flag_ is false
     if (!mercy_flag_) {
       lives_--;
       mercy_flag_ = true;

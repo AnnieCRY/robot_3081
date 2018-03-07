@@ -46,6 +46,7 @@ GraphicsArenaViewer::GraphicsArenaViewer(
     "New Game",
     std::bind(&GraphicsArenaViewer::OnRestartBtnPressed, this));
   paused_ = true;
+  screen()->setSize({X_DIM, Y_DIM});
   screen()->performLayout();
 }
 
