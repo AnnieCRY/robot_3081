@@ -6,16 +6,16 @@ Please copy this file into your /docs folder. Place an 'x' in each of the `[ ]` 
 
 ### Compilation and Execution
 
-- [ ] I cloned **fresh** from github onto a cselabs machine to test compilation
-- [ ] Submission is on the master branch of the my project repo "project-<username>"
-- [ ] _/iteration1_ folder exists
-- [ ] _/build_ is not in the repo
-- [ ] _/html_ is not in _docs_
-- [ ] **__`make` from src completes without error.__**
-- [ ] `./../build/bin/arenaviewer` executes without assert or a seg fault
-- [ ] `cpplint.py *.cc` reports no errors
-- [ ] `cpplint.py --root=.. *.h` reports no errors
-- [ ] `doxygen Doxyfile` compiles
+- [x] I cloned **fresh** from github onto a cselabs machine to test compilation
+- [x] Submission is on the master branch of the my project repo "project-<username>"
+- [x] _/iteration1_ folder exists
+- [x] _/build_ is not in the repo
+- [x] _/html_ is not in _docs_
+- [x] **__`make` from src completes without error.__**
+- [x] `./../build/bin/arenaviewer` executes without assert or a seg fault
+- [x] `cpplint.py *.cc` reports no errors
+- [x] `cpplint.py --root=.. *.h` reports no errors
+- [x] `doxygen Doxyfile` compiles
 
 ### Primary Functionality
 
@@ -31,51 +31,51 @@ but this status report can make it faster for us.
 | Functionality | Good | Okay | Help | Time |
 | -------- | -------- | -------- | -------- | --------- |
 | **__Priority Level 1__** | 
-| _Enitities_ are generated and placed according to the requirements |  |  |  |  |
-| _Robot_ adjusts wheel velocities when pressing the arrow keys |  |  |  |  |
-| _Robot_ stops when colliding with an object |  |  |  |  |
-| _Robot_ loses a life when colliding with an obstacle or wall |  |  |  |  |
-| _Base_ changes color when captured by _Robot_ |  |  |  |  |
-| Game is won if robot captures all bases |  |  |  |  |
-| Game is lost if the robot loses all its lives |  |  |  |  |
-| Obvious visual indication of winning or losing game |  |  |  |  |
-| Game stops and waits for the user upon a win or loss |  |  |  |   |
+| _Enitities_ are generated and placed according to the requirements |x|  |  |  |
+| _Robot_ adjusts wheel velocities when pressing the arrow keys |x|  |  |  |
+| _Robot_ stops when colliding with an object |x|  |  |  |
+| _Robot_ loses a life when colliding with an obstacle or wall |x|  |  |  |
+| _Base_ changes color when captured by _Robot_ |x|  |  |  |
+| Game is won if robot captures all bases |x|  |  |  |
+| Game is lost if the robot loses all its lives |x|  |  |  |
+| Obvious visual indication of winning or losing game |x|  |  |  |
+| Game stops and waits for the user upon a win or loss |x|  |  |   |
 | **__Priority Level 2__** |
-| _Obstacles_ are mobile with two same-speed wheels and moves straight |  |  |  |   |
-| _Obstacles_ move in a reverse arc for a fixed time after collision |  |  |  |   |
-| All entities are stationary before the "Play" button is pushed |  |  |  |   |
-| Pressing the button changes button state from "Play" to "Pause" |  |  |  |   |
-| Pressing the button changes the game state from playing to paused (or back) |  |  |  |  |
-| "New Game" button is available to user |  |  |  |  |
-| Pressing "New Game" begins a new game |  |  |  |  |
-| Number of lives remaining is depicted within the body of the robot |  |  |  |   |
+| _Obstacles_ are mobile with two same-speed wheels and moves straight |x|  |  |   |
+| _Obstacles_ move in a reverse arc for a fixed time after collision |x|  |  |   |
+| All entities are stationary before the "Play" button is pushed |x|  |  |   |
+| Pressing the button changes button state from "Play" to "Pause" |x|  |  |   |
+| Pressing the button changes the game state from playing to paused (or back) |x|  |  |  |
+| "New Game" button is available to user |x|  |  |  |
+| Pressing "New Game" begins a new game |x|  |  |  |
+| Number of lives remaining is depicted within the body of the robot |x|  |  |   |
 | **__Priority Level 3__** |
-| Even more obstacles |  |  |  |   |
-| Mercy invincibility is implemented |  |  |  |   |
+| Even more obstacles |x|  |  |   |
+| Mercy invincibility is implemented |x|  |  |   |
 | For Fun | 
-| King of the Hill is implemented |  |  |  |   |
+| King of the Hill is implemented |  |  |  | x|
 
 ### Documentation
 > Documentation should be in good _draft_ form.
 
-- [ ] _UML_ file for the iteration 1 exists in _docs_
-- [ ] The _UML_ reflects the current state of the code
-- [ ] _mainpage.h_ exists in _src_
-- [ ] Front page (mainpage) has a project description for programmer audience (1 to 2 pages)
-- [ ] I inspected index.html in _docs/html_ folder
-- [ ] Classes are documented in the doxygen web page class list
-- [ ] _Classes_ list has documentation for each class, including members and methods
-- [ ] I perused other classes to spot check documentation
-- [ ] I commented my code where necessary
+- [x] _UML_ file for the iteration 1 exists in _docs_
+- [x] The _UML_ reflects the current state of the code
+- [x] _mainpage.h_ exists in _src_
+- [x] Front page (mainpage) has a project description for programmer audience (1 to 2 pages)
+- [x] I inspected index.html in _docs/html_ folder
+- [x] Classes are documented in the doxygen web page class list
+- [x] _Classes_ list has documentation for each class, including members and methods
+- [x] I perused other classes to spot check documentation
+- [x] I commented my code where necessary
 
 ### Unit Tests, Linter, and Git
-- [ ] The code passes all the unit tests WITHOUT modification to the provided tests.
-- [ ] The code complies with naming conventions for classes, methods, and members.
-- [ ] There exists a history of git commit messages to show effort.
+- [x] The code passes all the unit tests WITHOUT modification to the provided tests.
+- [x] The code complies with naming conventions for classes, methods, and members.
+- [x] There exists a history of git commit messages to show effort.
 
 ### BugReport
-- [ ] BugReport.md is in the /docs folder.
-- [ ] The report includes a list of known bugs (or states "no known bugs") for each file.
+- [x] BugReport.md is in the /docs folder.
+- [x] The report includes a list of known bugs (or states "no known bugs") for each file.
   > If you report _minor_ bugs, you will lose few to no points for that functionality.
   > If you try to hide some obvious bugs and not report them, you will lose all the points for that functionality.
 
@@ -83,7 +83,7 @@ but this status report can make it faster for us.
 
 When everything above is as you want it or it is 11:55pm on Tuesday, it is time to submit!
 
-- [ ] I pushed this file and any changes resulting from this checklist.
+- [x] I pushed this file and any changes resulting from this checklist.
 
 _One more thing -- check that what you think you pushed was really pushed to github. If you can see it, we can see it. If you can't, we can't._
 
