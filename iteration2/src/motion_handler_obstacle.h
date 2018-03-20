@@ -34,14 +34,14 @@ NAMESPACE_BEGIN(csci3081);
  * Currently, both wheels are always going at maximum speed, and
  * cannot be controlled independently.
  */
-class MotionHandlerObstacle : public MotionHandler {
+class MotionHandlerLight : public MotionHandler {
  public:
-  explicit MotionHandlerObstacle(ArenaMobileEntity * ent)
+  explicit MotionHandlerLight(ArenaMobileEntity * ent)
       : MotionHandler(ent) {}
 
-  MotionHandlerObstacle(const MotionHandlerObstacle& other) = default;
-  MotionHandlerObstacle& operator =
-(const MotionHandlerObstacle& other) = default;
+  MotionHandlerLight(const MotionHandlerLight& other) = default;
+  MotionHandlerLight& operator =
+(const MotionHandlerLight& other) = default;
 
   /**
   * @brief Update the speed and the pose angle according to the sensor readings.
