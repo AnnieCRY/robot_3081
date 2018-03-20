@@ -1,5 +1,5 @@
 /**
- * @file obstacle.cc
+ * @file light.cc
  *
  * @copyright 2017 3081 Staff, All rights reserved.
  */
