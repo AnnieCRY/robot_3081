@@ -18,32 +18,32 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void MotionHandlerObstacle::IncreaseSpeed() {
+void MotionHandlerLight::IncreaseSpeed() {
   set_velocity(
     clamp_vel(get_velocity().left  + get_speed_delta()),
     clamp_vel(get_velocity().right + get_speed_delta()));
 }
 
-void MotionHandlerObstacle::DecreaseSpeed() {
+void MotionHandlerLight::DecreaseSpeed() {
   set_velocity(
     clamp_vel(get_velocity().left  - get_speed_delta()),
     clamp_vel(get_velocity().right - get_speed_delta()));
 }
 
 
-void MotionHandlerObstacle::TurnLeft() {
+void MotionHandlerLight::TurnLeft() {
   set_velocity(
     clamp_vel(get_velocity().left  - get_angle_delta()),
     clamp_vel(get_velocity().right + get_angle_delta()));
 }
 
-void MotionHandlerObstacle::TurnRight() {
+void MotionHandlerLight::TurnRight() {
   set_velocity(
     clamp_vel(get_velocity().left  + get_angle_delta()),
     clamp_vel(get_velocity().right - get_angle_delta()));
 }
 
-double MotionHandlerObstacle::clamp_vel(double vel) {
+double MotionHandlerLight::clamp_vel(double vel) {
   double clamped = 0.0;
   if (vel > 0) {
     clamped = (vel > get_max_speed()) ?
@@ -57,7 +57,7 @@ double MotionHandlerObstacle::clamp_vel(double vel) {
   return clamped;
 } /* clamp_vel() */
 
-void MotionHandlerObstacle::UpdateVelocity() {
+void MotionHandlerLight::UpdateVelocity() {
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;
     turn_step_ = 0;

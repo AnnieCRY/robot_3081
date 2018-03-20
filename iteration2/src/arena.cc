@@ -30,7 +30,7 @@ Arena::Arena(const struct arena_params *const params)
       game_status_(PLAYING) {
   AddRobot();
   AddEntity(kBase, 3);
-  AddEntity(kObstacle, 6);
+  AddEntity(kLight, 6);
 }
 
 Arena::~Arena() {
@@ -50,9 +50,9 @@ void Arena::AddRobot() {
 
 void Arena::AddEntity(EntityType type, int quantity) {
   for (int i = 0; i < quantity; i++) {
-    if (type == kObstacle) {
-      Obstacle* obstacle_ =
-      dynamic_cast<Obstacle *>(factory_->CreateEntity(kObstacle));
+    if (type == kLight) {
+      Light* obstacle_ =
+      dynamic_cast<Light *>(factory_->CreateEntity(kLight));
       entities_.push_back(obstacle_);
       mobile_entities_.push_back(obstacle_);
     } else {
@@ -118,7 +118,7 @@ void Arena::UpdateEntitiesTimestep() {
       if (ent1->get_type() == kRobot) {
         robot_-> HandleCollision(wall);
       } else {
-        Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
+        Light* ob_ = dynamic_cast<Light*>(ent1);
         ob_-> HandleCollision(wall);
       }
     }
@@ -132,7 +132,7 @@ void Arena::UpdateEntitiesTimestep() {
         if (ent1->get_type() == kRobot) {
           robot_->HandleCollision(ent2->get_type(), ent2);
         } else {
-          Obstacle* ob_ = dynamic_cast<Obstacle*>(ent1);
+          Light* ob_ = dynamic_cast<Light*>(ent1);
           ob_-> HandleCollision(ent2->get_type(), ent2);
         }
       }
