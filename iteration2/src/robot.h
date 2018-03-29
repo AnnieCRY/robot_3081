@@ -18,6 +18,7 @@
 #include "src/motion_behavior_differential.h"
 #include "src/entity_type.h"
 #include "src/base.h"
+#include "src/vehicle_pattern.h"
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -113,8 +114,7 @@ class Robot : public ArenaMobileEntity {
   // When all the lives are gone, the game is lost.
   int lives_;
 
-  int time_count_;
-  bool mercy_flag_;
+  Sensor light_sensor_ ;
 };
 
 NAMESPACE_END(csci3081);

@@ -17,12 +17,14 @@
 #include "src/motion_handler.h"
 #include "src/sensor_touch.h"
 #include "src/communication.h"
+#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
 NAMESPACE_BEGIN(csci3081);
 
+class Robot;
 /*******************************************************************************
  * Classes
  ******************************************************************************/
@@ -50,7 +52,7 @@ class MotionHandlerRobot : public MotionHandler {
   * @param[in] pose The current pose.
   * @param[in] st A SensorTouch to be read.
   */
-  void UpdateVelocity() override;
+  void UpdateVelocitybySensor(Sensor sensor);
 
   /**
    * @brief Increase the overall speed of the entity by speed_delta.
@@ -72,8 +74,11 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void TurnLeft() override;
 
+  //Sensor get_light_sensor() { return *light_sensor_;}
+  //void set_light_sensor(Sensor* sensor) { light_sensor_ = sensor;}
  private:
   double clamp_vel(double vel);
+  //Sensor* light_sensor_ = new Sensor(kLight, ROBOT_RADIUS);
 };
 
 NAMESPACE_END(csci3081);

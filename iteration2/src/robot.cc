@@ -22,12 +22,13 @@ Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
     lives_(9),
-    time_count_(0),
-    mercy_flag_(false) {
+    light_sensor_(kLight, ROBOT_RADIUS) {
   set_type(kRobot);
   set_color(ROBOT_COLOR);
   set_pose(ROBOT_INIT_POS);
   set_radius(ROBOT_RADIUS);
+  light_sensor_.update(this->get_pose());
+  light_sensor_.set_robot_radius(this->get_radius());
 }
 /*******************************************************************************
  * Member Functions
@@ -42,19 +43,6 @@ void Robot::TimestepUpdate(unsigned int dt) {
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
 
-  //  have robot flash in collision during 2 seconds
-  if (mercy_flag_ && time_count_ <20) {
-    time_count_++;
-    if (time_count_%2 ==0) {
-      set_color({255, 255, 0});
-    } else {
-      set_color(ROBOT_COLOR);
-    }
-  } else if (mercy_flag_ && time_count_ >=20) {
-    mercy_flag_ = false;
-    time_count_ = 0;
-    set_color(ROBOT_COLOR);
-  }
 } /* TimestepUpdate() */
 
 void Robot::Reset() {
@@ -72,12 +60,7 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   // stop when collides
   motion_handler_.set_velocity(0.0, 0.0);
   if (object_type != kBase) {
-    // if collidsion, then mercy_flag_ is true for 2 seconds
-    //  and only lose life when mercy_flag_ is false
-    if (!mercy_flag_) {
-      lives_--;
-      mercy_flag_ = true;
-    }
+    lives_--;
 
   } else if (object_type == kBase) {
     Base* base_temp_ = dynamic_cast<Base*>(object);

@@ -15,6 +15,7 @@
 #include "src/wheel_velocity.h"
 #include "src/sensor_touch.h"
 #include "src/arena_mobile_entity.h"
+#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
@@ -49,7 +50,6 @@ class MotionHandler {
   * @brief Update the heading angle according to the touch sensor reading.
   */
   virtual void UpdateVelocity() {}
-
   /**
    * @brief Getter for speed delta used when user requests speed increase.
    */
