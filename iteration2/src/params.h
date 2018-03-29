@@ -81,11 +81,12 @@
   { 255, 255, 255 }
 
 // sensor
-#define MAX_READING 1000
+#define MAX_READING_FOR_ONE 1000
+#define MAX_READING 4000
 
 #define COWARD { true, true}
 #define AGGRESSIVE { true, false}
 #define LOVE { false, true}
-#define EXPLORE { false, false}  
+#define EXPLORE { false, false}
 
 #endif  // SRC_PARAMS_H_

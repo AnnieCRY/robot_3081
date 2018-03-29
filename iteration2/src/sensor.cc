@@ -52,11 +52,11 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
     double delta_y_l = p.y - position_left_.y;
     double dis_l = sqrt (delta_x_l * delta_x_l + delta_y_l*delta_y_l) - stimuliraius;
     if (dis_l <= 0) {
-      reading_temp_l = MAX_READING;
+      reading_temp_l = MAX_READING_FOR_ONE;
     } else {
       reading_temp_l = 1200 / (pow(1.08,dis_l));
-      if (reading_temp_l> MAX_READING)
-        reading_temp_l = MAX_READING;
+      if (reading_temp_l> MAX_READING_FOR_ONE)
+        reading_temp_l = MAX_READING_FOR_ONE;
     }
 
     double reading_temp_r;
@@ -64,11 +64,11 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
     double delta_y_r = p.y - position_right_.y;
     double dis_r = sqrt (delta_x_r * delta_x_r + delta_y_r*delta_y_r) - stimuliraius;
     if (dis_r <= 0) {
-      reading_temp_r = MAX_READING;
+      reading_temp_r = MAX_READING_FOR_ONE;
     } else {
       reading_temp_r = 1200 / (pow(1.08,dis_r));
-      if (reading_temp_r> MAX_READING)
-        reading_temp_r = MAX_READING;
+      if (reading_temp_r> MAX_READING_FOR_ONE)
+        reading_temp_r = MAX_READING_FOR_ONE;
     }
 
     left_reading_ += reading_temp_l;
