@@ -137,8 +137,7 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgSave(ctx);
   nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  std::string robot_message_ = robot->get_name() +
-  " " + std::to_string(robot->get_lives());
+  std::string robot_message_ = robot->get_name() ;
   nvgText(ctx, 0.0, 10.0, robot_message_.c_str(), nullptr);
   std::string robot_sensor_lf = "/";
   nvgText(ctx, static_cast<float>(robot->get_radius()*0.64), -static_cast<float>(robot->get_radius()*0.766), robot_sensor_lf.c_str(), nullptr);
