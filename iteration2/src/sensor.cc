@@ -45,7 +45,8 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
   // update distance between sensor and stimulis
   // using an exponential function to simulate reading
   // sensor should be saturated when light source close
-  // readings are in range 0 to 1000
+  // readings for each stimuli are in range 0 to 1000
+  // the total reading is in range 0 to 4000, sincewe have 4 lights
   if (stimuli_type_ == kLight){
     double reading_temp_l;
     double delta_x_l = p.x - position_left_.x;
@@ -73,6 +74,11 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
 
     left_reading_ += reading_temp_l;
     right_reading_ += reading_temp_r;
+
+    if (left_reading_ > MAX_READING)
+      left_reading_ = MAX_READING;
+    if (right_reading_ > MAX_READING)
+      right_reading_ = MAX_READING;
   }
 }
 
