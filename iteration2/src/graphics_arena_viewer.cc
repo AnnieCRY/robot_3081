@@ -156,12 +156,15 @@ void GraphicsArenaViewer::DrawArena(NVGcontext *ctx) {
 
 void GraphicsArenaViewer::DrawEntity(NVGcontext *ctx,
                                        const ArenaEntity *const entity) {
+  nvgSave(ctx);
+  nvgTranslate(ctx,
+               static_cast<float>(entity->get_pose().x),
+               static_cast<float>(entity->get_pose().y));
+  nvgRotate(ctx,
+            static_cast<float>(entity->get_pose().theta * M_PI / 180.0));
   // obstacle's circle
   nvgBeginPath(ctx);
-  nvgCircle(ctx,
-            static_cast<float>(entity->get_pose().x),
-            static_cast<float>(entity->get_pose().y),
-            static_cast<float>(entity->get_radius()));
+  nvgCircle(ctx,0.0, 0.0, static_cast<float>(entity->get_radius()));
   nvgFillColor(ctx,
                nvgRGBA(entity->get_color().r, entity->get_color().g,
                        entity->get_color().b, 255));
@@ -170,11 +173,13 @@ void GraphicsArenaViewer::DrawEntity(NVGcontext *ctx,
   nvgStroke(ctx);
 
   // obstacle id text label
+  nvgSave(ctx);
+  nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
   nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx,
-          static_cast<float>(entity->get_pose().x),
-          static_cast<float>(entity->get_pose().y),
-          entity->get_name().c_str(), nullptr);
+  nvgText(ctx, 0.0, 10.0, entity->get_name().c_str(), nullptr);
+  nvgRestore(ctx);
+  nvgRestore(ctx);
+
 }
 
 void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
