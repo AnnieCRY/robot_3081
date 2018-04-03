@@ -51,6 +51,10 @@ class MotionHandler {
   */
   virtual void UpdateVelocity() {}
   /**
+  * @brief Update the heading angle according to the ligth and food sensor reading.
+  */
+  virtual void UpdateVelocitybySensor(__unused Sensor* sensor) {}
+  /**
    * @brief Getter for speed delta used when user requests speed increase.
    */
   double get_speed_delta() const { return speed_delta_; }

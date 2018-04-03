@@ -52,7 +52,7 @@ class MotionHandlerRobot : public MotionHandler {
   * @param[in] pose The current pose.
   * @param[in] st A SensorTouch to be read.
   */
-  void UpdateVelocitybySensor(Sensor sensor);
+  void UpdateVelocitybySensor(Sensor* sensor) override;
 
   /**
    * @brief Increase the overall speed of the entity by speed_delta.

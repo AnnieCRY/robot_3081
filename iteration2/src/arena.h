@@ -69,7 +69,7 @@ class Arena {
    */
   void AdvanceTime(double dt);
 
-  void AddRobot();
+  void AddRobot(int quantity);
   void AddEntity(EntityType type, int quantity);
 
   /**
@@ -87,7 +87,7 @@ class Arena {
    *
    * @return A pointer to the Robot.
    */
-  class Robot *robot() const { return robot_; }
+  class std::vector<class Robot *> robot() const { return robot_; }
 
   /**
    * @brief Under certain circumstance, the compiler requires that the
@@ -169,7 +169,7 @@ class Arena {
   EntityFactory *factory_;
 
   // Robot is special. It's also stored in the entity vectors.
-  Robot *robot_{nullptr};
+  std::vector<class Robot *> robot_;
 
   // All entities mobile and immobile.
   std::vector<class ArenaEntity *> entities_;

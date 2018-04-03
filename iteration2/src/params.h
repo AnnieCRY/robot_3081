@@ -52,7 +52,7 @@
 #define ROBOT_ANGLE_DELTA 1
 #define ROBOT_SPEED_DELTA 1
 #define ROBOT_COLLISION_DELTA 1
-#define ROBOT_RADIUS 30
+#define ROBOT_RADIUS 10
 #define ROBOT_INIT_POS \
   { 500, 500 , 0}
 #define ROBOT_COLOR \
@@ -81,11 +81,11 @@
   { 255, 255, 255 }
 
 // sensor
-#define MAX_READING_FOR_ONE 1000
-#define MAX_READING 4000
+#define MAX_READING_FOR_ONE 250
+#define MAX_READING 1000
 
-#define COWARD { true, true}
-#define AGGRESSIVE { true, false}
+#define COWARD { true, false}
+#define AGGRESSIVE { true, true}
 #define LOVE { false, true}
 #define EXPLORE { false, false}
 
