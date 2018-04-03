@@ -24,7 +24,7 @@ Sensor::Sensor(EntityType type, double r) :
   left_reading_(0),
   right_reading_(0),
   stimuli_type_(type),
-  pattern_(COWARD),
+  pattern_(EXPLORE),
   robot_radius_(r) {}
 
 /*******************************************************************************
