@@ -25,12 +25,21 @@ Arena::Arena(const struct arena_params *const params)
     : x_dim_(params->x_dim),
       y_dim_(params->y_dim),
       factory_(new EntityFactory),
+      robot_(),
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot();
+  AddRobot(1);
   AddEntity(kBase, 3);
-  AddEntity(kLight, 6);
+  AddEntity(kLight, 4);
+
+  // register sensor
+  for (auto ent1 : robot_){
+    for(auto ent2 : entities_){
+      if (ent2->get_type() == kLight)
+         dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
+    }
+  }
 }
 
 Arena::~Arena() {
@@ -42,10 +51,13 @@ Arena::~Arena() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Arena::AddRobot() {
-  robot_ = dynamic_cast<Robot *>(factory_->CreateEntity(kRobot));
-  entities_.push_back(robot_);
-  mobile_entities_.push_back(robot_);
+void Arena::AddRobot(int quantity) {
+  for (int i = 0; i < quantity; i++) {
+    Robot* r = dynamic_cast<Robot *>(factory_->CreateEntity(kRobot));
+    robot_.push_back(r);
+    entities_.push_back(r);
+    mobile_entities_.push_back(r);
+  }
 }
 
 void Arena::AddEntity(EntityType type, int quantity) {
@@ -92,7 +104,7 @@ void Arena::UpdateEntitiesTimestep() {
 
   /*
    * Check for win/loss
-   */
+
   if (robot_->get_lives() == 0) {
      game_status_ = LOST;
   } else {
@@ -106,7 +118,7 @@ void Arena::UpdateEntitiesTimestep() {
      if (base_captured_num_ == 3) {
        game_status_ = WON;
      }
-  }
+  }*/
 
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
@@ -116,7 +128,7 @@ void Arena::UpdateEntitiesTimestep() {
     if (kUndefined != wall) {
       AdjustWallOverlap(ent1, wall);
       if (ent1->get_type() == kRobot) {
-        robot_-> HandleCollision(wall);
+        dynamic_cast<Robot *>(ent1)-> HandleCollision(wall);
       } else {
         Light* ob_ = dynamic_cast<Light*>(ent1);
         ob_-> HandleCollision(wall);
@@ -127,13 +139,11 @@ void Arena::UpdateEntitiesTimestep() {
     */
     for (auto &ent2 : entities_) {
       if (ent2 == ent1) { continue; }
+      if (ent2->get_type() == kLight || ent1->get_type() == kLight ) { continue; }
       if (IsColliding(ent1, ent2)) {
         AdjustEntityOverlap(ent1, ent2);
         if (ent1->get_type() == kRobot) {
-          robot_->HandleCollision(ent2->get_type(), ent2);
-        } else {
-          Light* ob_ = dynamic_cast<Light*>(ent1);
-          ob_-> HandleCollision(ent2->get_type(), ent2);
+          dynamic_cast<Robot *>(ent1)->HandleCollision(ent2->get_type(), ent2);
         }
       }
     }
@@ -222,16 +232,16 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
 void Arena::AcceptCommand(Communication com) {
   switch (com) {
     case(kIncreaseSpeed):
-    robot_->IncreaseSpeed();
+    //robot_->IncreaseSpeed();
     break;
     case(kDecreaseSpeed):
-    robot_->DecreaseSpeed();
+    //robot_->DecreaseSpeed();
     break;
     case(kTurnLeft):
-    robot_->TurnLeft();
+    //robot_->TurnLeft();
     break;
     case(kTurnRight):
-    robot_->TurnRight();
+    //robot_->TurnRight();
     break;
     case(kReset):
     Reset();

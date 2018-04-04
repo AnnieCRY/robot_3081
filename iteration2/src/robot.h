@@ -101,9 +101,31 @@ class Robot : public ArenaMobileEntity {
 
   void set_lives(int l) { lives_ = l; }
 
+  Sensor* get_light_sensor() { return light_sensor_; }
+  //void set_pose(const Pose &pose) { pose_ = pose; }
+
   MotionHandlerRobot get_motion_handler() { return motion_handler_; }
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
+
+  /**
+   * @brief Under certain circumstance, the compiler requires that the
+   * assignment operator is not defined. This `deletes` the default
+   * assignment operator.
+   */
+  Robot &operator=(const Robot &other) = delete;
+
+  /**
+   * @brief Under certain circumstance, the compiler requires that the copy
+   * constructor is not defined. This `deletes` the default copy constructor.
+   */
+  Robot(const Robot &other) = delete;
+
+  //void NotifySensor(Pose pos, double r);
+  //void resetSensorReading() {
+  //  light_sensor_.set_left_reading(0);
+  //  light_sensor_.set_right_reading(0);
+  //}
 
  private:
   // Manages pose and wheel velocities that change with time and collisions.
@@ -114,7 +136,7 @@ class Robot : public ArenaMobileEntity {
   // When all the lives are gone, the game is lost.
   int lives_;
 
-  Sensor light_sensor_ ;
+  Sensor* light_sensor_ ;
 };
 
 NAMESPACE_END(csci3081);

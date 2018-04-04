@@ -22,26 +22,35 @@ Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
     lives_(9),
-    light_sensor_(kLight, ROBOT_RADIUS) {
+    light_sensor_(new Sensor(kLight,ROBOT_RADIUS )) {
   set_type(kRobot);
   set_color(ROBOT_COLOR);
   set_pose(ROBOT_INIT_POS);
   set_radius(ROBOT_RADIUS);
-  light_sensor_.update(this->get_pose());
-  light_sensor_.set_robot_radius(this->get_radius());
+  light_sensor_->update(this->get_pose());
+  light_sensor_->set_robot_radius(this->get_radius());
 }
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 void Robot::TimestepUpdate(unsigned int dt) {
   // Update heading as indicated by touch sensor
-  motion_handler_.UpdateVelocity();
+  //motion_handler_.UpdateVelocity();
+
+  motion_handler_.UpdateVelocitybySensor(light_sensor_);
 
   // Use velocity and position to update position
   motion_behavior_.UpdatePose(dt, motion_handler_.get_velocity());
 
   // Reset Sensor for next cycle
   sensor_touch_->Reset();
+
+  light_sensor_->set_left_reading(0);
+  light_sensor_->set_right_reading(0);
+  light_sensor_->update(get_pose());
+
+  //std::cout<<"\n"<<light_sensor_.get_left_reading()<<"  "<<
+  //light_sensor_.get_right_reading()<<"\n";
 
 } /* TimestepUpdate() */
 
@@ -71,6 +80,10 @@ void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   }
   sensor_touch_->HandleCollision(object_type, object);
 }
+
+//void Robot::NotifySensor(Pose pos, double r) {
+//  light_sensor_->calculateReading(pos, r);
+//}
 
 void Robot::IncreaseSpeed() {
   motion_handler_.IncreaseSpeed();

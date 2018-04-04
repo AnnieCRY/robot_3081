@@ -58,6 +58,7 @@ class ArenaMobileEntity : public ArenaEntity {
   */
   SensorTouch * get_touch_sensor() { return sensor_touch_; }
 
+
  private:
   double speed_;
 

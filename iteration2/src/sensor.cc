@@ -24,7 +24,7 @@ Sensor::Sensor(EntityType type, double r) :
   left_reading_(0),
   right_reading_(0),
   stimuli_type_(type),
-  pattern_(COWARD),
+  pattern_(EXPLORE),
   robot_radius_(r) {}
 
 /*******************************************************************************
@@ -47,15 +47,19 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
   // sensor should be saturated when light source close
   // readings for each stimuli are in range 0 to 1000
   // the total reading is in range 0 to 4000, sincewe have 4 lights
+
+  //std::cout<<"stimuli pos: "<<p.x<<", "<<p.y<<"--------"<<
+  //"sensor pos: "<<position_left_.x<<", "<<position_left_.y<<"***"<<position_right_.x<<", "<<position_right_.y<<"\n";;
   if (stimuli_type_ == kLight){
     double reading_temp_l;
     double delta_x_l = p.x - position_left_.x;
     double delta_y_l = p.y - position_left_.y;
     double dis_l = sqrt (delta_x_l * delta_x_l + delta_y_l*delta_y_l) - stimuliraius;
+    //std::cout<<"left distance"<<dis_l<<"\n";
     if (dis_l <= 0) {
       reading_temp_l = MAX_READING_FOR_ONE;
     } else {
-      reading_temp_l = 1200 / (pow(1.08,dis_l));
+      reading_temp_l = 1200 / dis_l;
       if (reading_temp_l> MAX_READING_FOR_ONE)
         reading_temp_l = MAX_READING_FOR_ONE;
     }
@@ -64,21 +68,26 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
     double delta_x_r = p.x - position_right_.x;
     double delta_y_r = p.y - position_right_.y;
     double dis_r = sqrt (delta_x_r * delta_x_r + delta_y_r*delta_y_r) - stimuliraius;
+    //std::cout<<"right distance"<<dis_r<<"\n";
     if (dis_r <= 0) {
       reading_temp_r = MAX_READING_FOR_ONE;
     } else {
-      reading_temp_r = 1200 / (pow(1.08,dis_r));
+      reading_temp_r = 1200 / dis_r;
       if (reading_temp_r> MAX_READING_FOR_ONE)
         reading_temp_r = MAX_READING_FOR_ONE;
     }
 
+        //std::cout<<"left reading bef:"<<left_reading_<<"  ";
     left_reading_ += reading_temp_l;
     right_reading_ += reading_temp_r;
+
+        //std::cout<<"left reading after:"<<left_reading_<<"  \n";
 
     if (left_reading_ > MAX_READING)
       left_reading_ = MAX_READING;
     if (right_reading_ > MAX_READING)
       right_reading_ = MAX_READING;
+    //std::cout<<""<<left_reading_<<"  "<< right_reading_<<"\n";
   }
 }
 
