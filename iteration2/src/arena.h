@@ -69,7 +69,7 @@ class Arena {
    */
   void AdvanceTime(double dt);
 
-  void AddRobot(int quantity);
+  void AddRobot(int quantity, Pattern p);
   void AddEntity(EntityType type, int quantity);
 
   /**

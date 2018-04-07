@@ -147,20 +147,6 @@ void GraphicsArenaViewer::DrawRobot(NVGcontext *ctx,
   nvgRestore(ctx);
   nvgRestore(ctx);
 
-  //draw sensor
-//  nvgSave(ctx);
-  //nvgTranslate(ctx,
-    //           static_cast<float>(robot->get_pose().x),
-      //         static_cast<float>(robot->get_pose().y));
-  //nvgRotate(ctx,
-    //        static_cast<float>(robot->get_pose().theta * M_PI / 180.0));
-
-//  nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-//  std::string robot_sensor_lf = "/";
-//  nvgText(ctx, static_cast<float>(robot->get_radius()*0.64), -static_cast<float>(robot->get_radius()*0.766), robot_sensor_lf.c_str(), nullptr);
-  //std::string robot_sensor_rt = "\\";
-  //nvgText(ctx, -static_cast<float>(robot->get_radius()*0.64), -static_cast<float>(robot->get_radius()*0.766), robot_sensor_rt.c_str(), nullptr);
-  //nvgRestore(ctx);
 
 }
 void GraphicsArenaViewer::DrawArena(NVGcontext *ctx) {
@@ -173,32 +159,7 @@ void GraphicsArenaViewer::DrawArena(NVGcontext *ctx) {
 
 void GraphicsArenaViewer::DrawEntity(NVGcontext *ctx,
                                        const ArenaEntity *const entity) {
-  nvgSave(ctx);
-<<<<<<< HEAD
-  nvgTranslate(ctx,
-               static_cast<float>(entity->get_pose().x),
-               static_cast<float>(entity->get_pose().y));
-  nvgRotate(ctx,
-            static_cast<float>(entity->get_pose().theta * M_PI / 180.0));
-  // obstacle's circle
-  nvgBeginPath(ctx);
-  nvgCircle(ctx,0.0, 0.0, static_cast<float>(entity->get_radius()));
-  nvgFillColor(ctx,
-               nvgRGBA(entity->get_color().r, entity->get_color().g,
-                       entity->get_color().b, 255));
-  nvgFill(ctx);
-  nvgStrokeColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgStroke(ctx);
-
-  // obstacle id text label
-  nvgSave(ctx);
-  nvgRotate(ctx, static_cast<float>(M_PI / 2.0));
-  nvgFillColor(ctx, nvgRGBA(0, 0, 0, 255));
-  nvgText(ctx, 0.0, 10.0, entity->get_name().c_str(), nullptr);
-  nvgRestore(ctx);
-  nvgRestore(ctx);
-
-=======
+ nvgSave(ctx);
  nvgTranslate(ctx,
               static_cast<float>(entity->get_pose().x),
               static_cast<float>(entity->get_pose().y));
@@ -222,7 +183,6 @@ void GraphicsArenaViewer::DrawEntity(NVGcontext *ctx,
  nvgRestore(ctx);
  nvgRestore(ctx);
 
->>>>>>> add/04-react-to-light
 }
 
 void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {

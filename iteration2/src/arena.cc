@@ -29,7 +29,8 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot(1);
+  AddRobot(2,COWARD);
+  AddRobot(2,EXPLORE);
   AddEntity(kBase, 3);
   AddEntity(kLight, 4);
 
@@ -51,9 +52,9 @@ Arena::~Arena() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Arena::AddRobot(int quantity) {
+void Arena::AddRobot(int quantity, Pattern p) {
   for (int i = 0; i < quantity; i++) {
-    Robot* r = dynamic_cast<Robot *>(factory_->CreateEntity(kRobot));
+    Robot* r = dynamic_cast<Robot *>(factory_->CreateRobot(p));
     robot_.push_back(r);
     entities_.push_back(r);
     mobile_entities_.push_back(r);
