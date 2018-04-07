@@ -101,7 +101,10 @@ class Robot : public ArenaMobileEntity {
 
   void set_lives(int l) { lives_ = l; }
 
+  bool get_starve()const {return starve_; }
+
   Sensor* get_light_sensor() { return light_sensor_; }
+  Sensor* get_food_sensor() { return food_sensor_; }
   //void set_pose(const Pose &pose) { pose_ = pose; }
 
   MotionHandlerRobot get_motion_handler() { return motion_handler_; }
@@ -138,6 +141,12 @@ class Robot : public ArenaMobileEntity {
   int lives_;
 
   Sensor* light_sensor_ ;
+  Sensor* food_sensor_ ;
+
+  bool hungry_;
+  bool really_hungry_;
+  bool starve_;
+  int time_count_;
 };
 
 NAMESPACE_END(csci3081);

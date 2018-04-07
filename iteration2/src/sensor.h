@@ -45,8 +45,8 @@ class Sensor {
   Pose &get_left_position() { return position_left_; }
   void set_right_position(const Pose &p) { position_right_ = p; }
   Pose &get_right_position() { return position_right_; }
-  void set_stimuli_position(const Pose &p) { stimuli_pose_ = p; }
-  Pose &get_stimuli_position() { return stimuli_pose_; }
+  //void set_stimuli_position(const Pose &p) { stimuli_pose_ = p; }
+  //Pose &get_stimuli_position() { return stimuli_pose_; }
 
   void set_left_reading( double dis) { left_reading_ = dis; }
   double get_left_reading() { return left_reading_; }
@@ -71,17 +71,21 @@ class Sensor {
   void update(Pose p);
   void calculateReading(Pose p, double stimuliraius);
 
+  bool get_food_consumption() { return food_consumption_;}
+  void set_food_consumption (bool b) { food_consumption_ = b;}
+
 
 
  private:
   Pose position_left_;
   Pose position_right_;
-  Pose stimuli_pose_;
+  Pose robot_pose_;
   double left_reading_;
   double right_reading_;
   EntityType stimuli_type_;
   Pattern pattern_;
   double robot_radius_;
+  bool food_consumption_;
 
 };
 

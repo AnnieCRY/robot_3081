@@ -29,16 +29,19 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot(2,COWARD);
-  AddRobot(2,EXPLORE);
-  AddEntity(kBase, 3);
+  AddRobot(5,COWARD);
+  AddRobot(5,EXPLORE);
+  AddEntity(kBase, 4);
   AddEntity(kLight, 4);
 
   // register sensor
   for (auto ent1 : robot_){
-    for(auto ent2 : entities_){
+    for (auto ent2 : entities_){
       if (ent2->get_type() == kLight)
          dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
+      if (ent2->get_type() == kBase)
+         dynamic_cast<Base*>(ent2)->RegisterSensor(ent1->get_food_sensor());
+        // dynamic_cast<Base*>(ent2)->NotifySensor();
     }
   }
 }
@@ -103,24 +106,12 @@ void Arena::UpdateEntitiesTimestep() {
     ent->TimestepUpdate(1);
   }
 
-  /*
-   * Check for win/loss
-
-  if (robot_->get_lives() == 0) {
-     game_status_ = LOST;
-  } else {
-     int base_captured_num_ = 0;
-     for (auto &ent2 : entities_) {
-       if (ent2->get_type() == kBase
-       && dynamic_cast<Base*>(ent2)->IsCaptured()) {
-         base_captured_num_++;
-       }
-     }
-     if (base_captured_num_ == 3) {
-       game_status_ = WON;
-     }
-  }*/
-
+  for (auto ent : entities_) {
+    if (ent->get_type() == kRobot) {
+      if(dynamic_cast<Robot *>(ent)->get_starve())
+        game_status_ = LOST;
+    }
+  }
    /* Determine if any mobile entity is colliding with wall.
    * Adjust the position accordingly so it doesn't overlap.
    */
@@ -140,12 +131,13 @@ void Arena::UpdateEntitiesTimestep() {
     */
     for (auto &ent2 : entities_) {
       if (ent2 == ent1) { continue; }
-      if (ent2->get_type() == kLight || ent1->get_type() == kLight ) { continue; }
-      if (IsColliding(ent1, ent2)) {
+      if (ent2->get_type() == kBase) { continue; }
+      if (ent1->get_type() == kLight && ent2->get_type() == kLight
+       && IsColliding(ent1, ent2)) {
         AdjustEntityOverlap(ent1, ent2);
-        if (ent1->get_type() == kRobot) {
-          dynamic_cast<Robot *>(ent1)->HandleCollision(ent2->get_type(), ent2);
-        }
+        //if (ent1->get_type() == kRobot) {
+        //  dynamic_cast<Robot *>(ent1)->HandleCollision(ent2->get_type(), ent2);
+        //}
       }
     }
   }
