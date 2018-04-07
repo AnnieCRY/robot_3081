@@ -33,9 +33,6 @@ EntityFactory::EntityFactory() {
 
 ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
   switch (etype) {
-    case (kRobot):
-      return CreateRobot();
-      break;
     case (kLight):
       return CreateLight();
       break;
@@ -49,12 +46,13 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
   return nullptr;
 }
 
-Robot* EntityFactory::CreateRobot() {
+Robot* EntityFactory::CreateRobot(Pattern p) {
   auto* robot = new Robot;
   robot->set_type(kRobot);
   robot->set_color(ROBOT_COLOR);
   robot->set_pose(ROBOT_INIT_POS);
   robot->set_radius(ROBOT_RADIUS);
+  robot->set_pattern(p);
   ++entity_count_;
   ++robot_count_;
   robot->set_id(robot_count_);

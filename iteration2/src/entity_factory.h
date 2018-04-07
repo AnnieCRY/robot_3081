@@ -62,12 +62,13 @@ class EntityFactory {
   * of the entity type.
   */
   ArenaEntity* CreateEntity(EntityType etype);
+  /**
+  * @brief CreateRobot called from within CreateEntity.
+  */
+ Robot* CreateRobot(Pattern p);
 
  private:
-   /**
-   * @brief CreateRobot called from within CreateEntity.
-   */
-  Robot* CreateRobot();
+
 
   /**
   * @brief CreateLight called from within CreateEntity.

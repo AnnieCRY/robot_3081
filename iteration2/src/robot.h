@@ -108,6 +108,7 @@ class Robot : public ArenaMobileEntity {
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
 
+  void set_pattern(Pattern p) {light_sensor_->set_pattern(p);}
   /**
    * @brief Under certain circumstance, the compiler requires that the
    * assignment operator is not defined. This `deletes` the default
