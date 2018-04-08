@@ -15,6 +15,7 @@
 #include "src/arena_immobile_entity.h"
 #include "src/common.h"
 #include "src/entity_type.h"
+#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
@@ -46,12 +47,16 @@ class Base : public ArenaImmobileEntity {
    */
   Base();
 
+   void TimestepUpdate(__unused unsigned int dt) override;
   /**
    * @brief Reset the Base using the initialization parameters received
    * by the constructor.
    */
   void Reset() override;
 
+  void NotifySensor();
+
+  void RegisterSensor(Sensor *sensor);
   /**
    * @brief Get the name of the Base for visualization purposes, and to
    * aid in debugging.
@@ -74,6 +79,7 @@ class Base : public ArenaImmobileEntity {
 
  private:
   bool captured_;
+    std::vector <class Sensor*> sensors_;
 };
 
 NAMESPACE_END(csci3081);

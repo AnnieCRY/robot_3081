@@ -66,15 +66,32 @@ class Light : public ArenaMobileEntity {
    */
   void Reset() override;
 
+  void NotifySensor();
+
+  void RegisterSensor(Sensor *sensor);
+
   MotionHandlerLight get_motion_handler() { return motion_handler_;}
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_;}
+  /**
+   * @brief Under certain circumstance, the compiler requires that the
+   * assignment operator is not defined. This `deletes` the default
+   * assignment operator.
+   */
+  Light &operator=(const Light &other) = delete;
+
+  /**
+   * @brief Under certain circumstance, the compiler requires that the copy
+   * constructor is not defined. This `deletes` the default copy constructor.
+   */
+  Light(const Light &other) = delete;
 
  private:
     // Manages pose and wheel velocities that change with time and collisions.
     MotionHandlerLight motion_handler_;
     // Calculates changes in pose based on elapsed time and wheel velocities.
     MotionBehaviorDifferential motion_behavior_;
+    std::vector <class Sensor*> sensors_;
 };
 
 

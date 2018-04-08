@@ -44,13 +44,13 @@ void MotionHandlerRobot::DecreaseSpeed() {
     clamp_vel(get_velocity().right - get_speed_delta()));
 }
 
-void MotionHandlerRobot::UpdateVelocitybySensor(Sensor sensor) {
+void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   if (entity_->get_touch_sensor()->get_output()) {
     entity_->RelativeChangeHeading(+180);
   }
-  Pattern robotic_controls = sensor.get_pattern();
-  double v_left = sensor.get_left_reading()/400.0;
-  double v_right = sensor.get_right_reading()/400.0;
+  Pattern robotic_controls = sensor->get_pattern();
+  double v_left = sensor->get_left_reading()/10.0;
+  double v_right = sensor->get_right_reading()/10.0;
 
   if (!robotic_controls.positive){
     v_left = get_max_speed() - v_left;
@@ -61,6 +61,7 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor sensor) {
   } else {
     set_velocity(clamp_vel(v_right),clamp_vel(v_left));
   }
+//  std::cout<<"V:"<<v_left<<"  "<< v_right<<"\n";
 }
 
 double MotionHandlerRobot::clamp_vel(double vel) {
