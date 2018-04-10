@@ -33,12 +33,7 @@ void Light::TimestepUpdate(unsigned int dt) {
   NotifySensor();
 }
 void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  if (object_type == kLight || object_type == kRobot
-  || object_type == kBase) {
     sensor_touch_->HandleCollision(object_type, object);
-  } else {
-    RelativeChangeHeading(+180);
-  }
 }
 
 void Light::NotifySensor(){

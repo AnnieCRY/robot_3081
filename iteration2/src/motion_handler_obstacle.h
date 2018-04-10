@@ -69,7 +69,6 @@ class MotionHandlerLight : public MotionHandler {
   void TurnLeft() override;
   void TurnRight() override;
 
-
  private:
   double clamp_vel(double vel);
   bool turn_flag_ = false;
