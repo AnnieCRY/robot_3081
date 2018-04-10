@@ -46,8 +46,21 @@ void MotionHandlerRobot::DecreaseSpeed() {
 
 void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   if (entity_->get_touch_sensor()->get_output()) {
+    turn_flag_ = true;
+    turn_step_ = 0;
+    //set_velocity(5,5);
     entity_->RelativeChangeHeading(+180);
   }
+  if (turn_flag_ && turn_step_< 50) {
+    entity_->RelativeChangeHeading(+1);
+    turn_step_++;
+  } else {
+    // after it turns, it will go straight util the next collision
+    //set_velocity(5, 5);
+    turn_flag_ = false;
+    turn_step_ = 0;
+  }
+
   Pattern robotic_controls = sensor->get_pattern();
   double v_left = sensor->get_left_reading()/10.0;
   double v_right = sensor->get_right_reading()/10.0;

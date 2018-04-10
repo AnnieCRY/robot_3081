@@ -78,6 +78,9 @@ class MotionHandlerRobot : public MotionHandler {
   //void set_light_sensor(Sensor* sensor) { light_sensor_ = sensor;}
  private:
   double clamp_vel(double vel);
+
+  bool turn_flag_ = false;
+  int turn_step_ = 0;
   //Sensor* light_sensor_ = new Sensor(kLight, ROBOT_RADIUS);
 };
 
