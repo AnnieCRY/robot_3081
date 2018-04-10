@@ -89,7 +89,7 @@ class Light : public ArenaMobileEntity {
  private:
     // Manages pose and wheel velocities that change with time and collisions.
     MotionHandlerLight motion_handler_;
-    // Calculates changes in pose based on elapsed time and wheel velocities.
+    // Calculates changes in pose foodd on elapsed time and wheel velocities.
     MotionBehaviorDifferential motion_behavior_;
     std::vector <class Sensor*> sensors_;
 };

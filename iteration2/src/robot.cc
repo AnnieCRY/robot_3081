@@ -23,7 +23,7 @@ Robot::Robot() :
     motion_behavior_(this),
     lives_(9),
     light_sensor_(new Sensor(kLight,ROBOT_RADIUS )),
-    food_sensor_(new Sensor(kBase,ROBOT_RADIUS )),
+    food_sensor_(new Sensor(kFood,ROBOT_RADIUS )),
     hungry_(false),
     really_hungry_(false),
     starve_(false),
@@ -110,14 +110,14 @@ void Robot::Reset() {
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   // stop when collides
   //motion_handler_.set_velocity(0.0, 0.0);
-  //if (object_type != kBase) {
+  //if (object_type != kFood) {
     //lives_--;
 
-  //} else if (object_type == kBase) {
-    //Base* base_temp_ = dynamic_cast<Base*>(object);
+  //} else if (object_type == kFood) {
+    //Food* food_temp_ = dynamic_cast<Food*>(object);
     //object->set_color({255, 159, 0});
-    //if (!base_temp_->IsCaptured()) {
-    //  base_temp_->set_captured(true);
+    //if (!food_temp_->IsCaptured()) {
+    //  food_temp_->set_captured(true);
     //}
   //}
   sensor_touch_->HandleCollision(object_type, object);

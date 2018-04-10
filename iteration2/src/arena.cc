@@ -31,7 +31,7 @@ Arena::Arena(const struct arena_params *const params)
       game_status_(PLAYING) {
   AddRobot(5,COWARD);
   AddRobot(5,EXPLORE);
-  AddEntity(kBase, 4);
+  AddEntity(kFood, 4);
   AddEntity(kLight, 4);
 
   // register sensor
@@ -39,9 +39,9 @@ Arena::Arena(const struct arena_params *const params)
     for (auto ent2 : entities_){
       if (ent2->get_type() == kLight)
          dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
-      if (ent2->get_type() == kBase)
-         dynamic_cast<Base*>(ent2)->RegisterSensor(ent1->get_food_sensor());
-        // dynamic_cast<Base*>(ent2)->NotifySensor();
+      if (ent2->get_type() == kFood)
+         dynamic_cast<Food*>(ent2)->RegisterSensor(ent1->get_food_sensor());
+        // dynamic_cast<Food*>(ent2)->NotifySensor();
     }
   }
 }
@@ -131,7 +131,7 @@ void Arena::UpdateEntitiesTimestep() {
     */
     for (auto &ent2 : entities_) {
       if (ent2 == ent1) { continue; }
-      if (ent2->get_type() == kBase) { continue; }
+      if (ent2->get_type() == kFood) { continue; }
       if ((ent1->get_type() == kLight && ent2->get_type() == kRobot) ||
       (ent2->get_type() == kLight && ent1->get_type() == kRobot)) {
         continue;
@@ -204,7 +204,7 @@ bool Arena::IsColliding(
 */
 /* @TODO: Add functionality to Pose to determine the distance distance_between two instances (e.g. overload operator -)
 */
-/* @BUG: The robot will pass through the home base on occasion. The problem
+/* @BUG: The robot will pass through the home food on occasion. The problem
  * is likely due to the adjustment being in the wrong direction. This could
  * be because the cos/sin generate the wrong sign of the distance_to_move
  * when the collision is in a specific quadrant relative to the center of the

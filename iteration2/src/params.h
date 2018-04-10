@@ -65,13 +65,13 @@
 #define ROBOT_MAX_SPEED 10
 #define ROBOT_MAX_ANGLE 360
 
-// base
-#define BASE_RADIUS 20
-#define BASE_COLLISION_DELTA 1
-#define BASE_INIT_POS \
+// food
+#define FOOD_RADIUS 20
+#define FOOD_COLLISION_DELTA 1
+#define FOOD_INIT_POS \
   { 400, 400 }
-#define BASE_COLOR \
-  { 255, 0, 0 }
+#define FOOD_COLOR \
+  { 153, 230, 0 }
 
 // obstacle
 #define OBSTACLE_POSITION \

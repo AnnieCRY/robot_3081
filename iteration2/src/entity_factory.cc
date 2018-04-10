@@ -36,8 +36,8 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
     case (kLight):
       return CreateLight();
       break;
-    case (kBase):
-      return CreateBase();
+    case (kFood):
+      return CreateFood();
       break;
     default:
       std::cout << "FATAL: Bad entity type on creation\n";
@@ -75,16 +75,16 @@ Light* EntityFactory::CreateLight() {
   return obstacle;
 }
 
-Base* EntityFactory::CreateBase() {
-  auto* base = new Base;
-  base->set_type(kBase);
-  base->set_color(BASE_COLOR);
-  base->set_pose(SetPoseRandomly());
-  base->set_radius(BASE_RADIUS);
+Food* EntityFactory::CreateFood() {
+  auto* food = new Food;
+  food->set_type(kFood);
+  food->set_color(FOOD_COLOR);
+  food->set_pose(SetPoseRandomly());
+  food->set_radius(FOOD_RADIUS);
   ++entity_count_;
-  ++base_count_;
-  base->set_id(base_count_);
-  return base;
+  ++food_count_;
+  food->set_id(food_count_);
+  return food;
 }
 
 Pose EntityFactory::SetPoseRandomly() {

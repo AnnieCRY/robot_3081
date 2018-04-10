@@ -90,7 +90,7 @@ void Sensor::calculateReading(Pose p, double stimuliraius){
     if (right_reading_ > MAX_READING)
       right_reading_ = MAX_READING;
     //std::cout<<""<<left_reading_<<"  "<< right_reading_<<"\n";
-  } else if (stimuli_type_ == kBase){
+  } else if (stimuli_type_ == kFood){
     double dis = sqrt ((p.x - robot_pose_.x) * (p.x - robot_pose_.x) +
      (p.y - robot_pose_.y)*(p.y - robot_pose_.y)) - stimuliraius;
     bool food_consumption_temp = false;

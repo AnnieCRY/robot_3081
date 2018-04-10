@@ -31,7 +31,7 @@ NAMESPACE_BEGIN(csci3081);
  * All mobile entities must have a heading angle so that their orientation can
  * be properly drawn by the GraphicsArenaViewer.
  *
- * Since this is also a base class, many of its methods are intuitively
+ * Since this is also a food class, many of its methods are intuitively
  * `virtual`.
  */
 class ArenaMobileEntity : public ArenaEntity {

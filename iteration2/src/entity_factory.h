@@ -12,7 +12,7 @@
  ******************************************************************************/
 #include <string>
 
-#include "src/base.h"
+#include "src/food.h"
 #include "src/common.h"
 #include "src/entity_type.h"
 #include "src/light.h"
@@ -76,9 +76,9 @@ class EntityFactory {
   Light* CreateLight();
 
   /**
-  * @brief CreateBase called from within CreateEntity.
+  * @brief CreateFood called from within CreateEntity.
   */
-  Base* CreateBase();
+  Food* CreateFood();
 
   /**
   * @brief An attempt to not overlap any of the newly constructed entities.
@@ -90,7 +90,7 @@ class EntityFactory {
   int entity_count_{0};
   int robot_count_{0};
   int obstacle_count_{0};
-  int base_count_{0};
+  int food_count_{0};
 };
 
 NAMESPACE_END(csci3081);
