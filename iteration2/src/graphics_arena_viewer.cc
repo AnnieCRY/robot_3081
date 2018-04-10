@@ -200,7 +200,7 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
   }
 
   std::string won_message_ = "You Won!";
-  std::string lost_message_ = "Lost...Try Again!";
+  std::string lost_message_ = "A robot starves!";
   if (arena_->get_game_status() == WON) {
     nvgFontSize(ctx, 100.0f);
     nvgText(ctx, 250.0, 150.0, won_message_.c_str(), nullptr);
