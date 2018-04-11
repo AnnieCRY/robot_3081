@@ -48,7 +48,6 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;
     turn_step_ = 0;
-    //set_velocity(5,5);
     entity_->RelativeChangeHeading(+180);
   }
   if (turn_flag_ && turn_step_< 50) {
@@ -56,7 +55,6 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
     turn_step_++;
   } else {
     // after it turns, it will go straight util the next collision
-    //set_velocity(5, 5);
     turn_flag_ = false;
     turn_step_ = 0;
   }
@@ -65,20 +63,18 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   double v_left = sensor->get_left_reading()/10.0;
   double v_right = sensor->get_right_reading()/10.0;
 
-  if (!robotic_controls.positive){
+  if (!robotic_controls.positive) {
     v_left = get_max_speed() - v_left;
     v_right = get_max_speed() - v_right;
   }
-  if (robotic_controls.direct){
-    set_velocity(clamp_vel(v_left),clamp_vel(v_right));
+  if (robotic_controls.direct) {
+    set_velocity(clamp_vel(v_left), clamp_vel(v_right));
   } else {
-    set_velocity(clamp_vel(v_right),clamp_vel(v_left));
+    set_velocity(clamp_vel(v_right), clamp_vel(v_left));
   }
-//  std::cout<<"V:"<<v_left<<"  "<< v_right<<"\n";
 }
 
 double MotionHandlerRobot::clamp_vel(double vel) {
-
   double clamped = 0.0;
   if (vel > 0) {
     clamped = (vel > get_max_speed()) ?

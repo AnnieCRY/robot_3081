@@ -22,8 +22,8 @@ Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
     lives_(9),
-    light_sensor_(new Sensor(kLight,ROBOT_RADIUS )),
-    food_sensor_(new Sensor(kFood,ROBOT_RADIUS )),
+    light_sensor_(new Sensor(kLight, ROBOT_RADIUS )),
+    food_sensor_(new Sensor(kFood, ROBOT_RADIUS )),
     hungry_(false),
     really_hungry_(false),
     starve_(false),
@@ -41,35 +41,31 @@ Robot::Robot() :
  * Member Functions
  ******************************************************************************/
 void Robot::TimestepUpdate(unsigned int dt) {
-  // Update heading as indicated by touch sensor
-  //motion_handler_.UpdateVelocity();
+  time_count_++;
 
-  time_count_ ++;
-
-  //set status of robot
-  if(time_count_ > 300)
+  // set status of robot
+  if ( time_count_ > 300 )
     hungry_ = true;
-  if(time_count_ > 1200)
+  if ( time_count_ > 1200 )
     really_hungry_ = true;
-  if(time_count_ > 1500)
+  if ( time_count_ > 1500 )
     starve_ = true;
-  if(food_sensor_->get_food_consumption()){
+  if ( food_sensor_->get_food_consumption() ) {
     hungry_ = false;
     really_hungry_ = false;
     starve_ = false;
     time_count_ = 0;
   }
-  //if(time_count_ > 1200 && !food_sensor_->get_food_consumption())
-  //  really_hungry_ = true;
-  if(starve_){
+
+  if (starve_) {
     set_color({128, 0, 0});
-  } else if(really_hungry_) {
+  } else if (really_hungry_) {
     set_color({255, 51, 51});
     motion_handler_.UpdateVelocitybySensor(food_sensor_);
-  } else if(hungry_) {
+  } else if (hungry_) {
     set_color({255, 128, 128});
     if (food_sensor_->get_left_reading() > light_sensor_->get_left_reading()
-     ||  food_sensor_->get_right_reading() > light_sensor_->get_right_reading()) {
+     ||food_sensor_->get_right_reading() > light_sensor_->get_right_reading()) {
          motion_handler_.UpdateVelocitybySensor(food_sensor_);
     } else {
         motion_handler_.UpdateVelocitybySensor(light_sensor_);
@@ -93,7 +89,6 @@ void Robot::TimestepUpdate(unsigned int dt) {
   food_sensor_->set_food_consumption(false);
   food_sensor_->set_right_reading(0);
   food_sensor_->update(get_pose());
-
 } /* TimestepUpdate() */
 
 void Robot::Reset() {
@@ -108,24 +103,8 @@ void Robot::Reset() {
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
-  // stop when collides
-  //motion_handler_.set_velocity(0.0, 0.0);
-  //if (object_type != kFood) {
-    //lives_--;
-
-  //} else if (object_type == kFood) {
-    //Food* food_temp_ = dynamic_cast<Food*>(object);
-    //object->set_color({255, 159, 0});
-    //if (!food_temp_->IsCaptured()) {
-    //  food_temp_->set_captured(true);
-    //}
-  //}
   sensor_touch_->HandleCollision(object_type, object);
 }
-
-//void Robot::NotifySensor(Pose pos, double r) {
-//  light_sensor_->calculateReading(pos, r);
-//}
 
 void Robot::IncreaseSpeed() {
   motion_handler_.IncreaseSpeed();

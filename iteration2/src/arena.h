@@ -69,11 +69,33 @@ class Arena {
    */
   void AdvanceTime(double dt);
 
+  /**
+   * @brief Add robot in arena.
+   *
+   * @param[in] quantity The # of robot.
+   * @param[in] p The pattern of vehicle. There are four kinds: Love,
+   * coward, Explore and Aggressive
+   *
+   * Specify the number and vehicle pattern of the robots
+   * and add them into arena
+   */
   void AddRobot(int quantity, Pattern p);
+  /**
+   * @brief Add entity in arena.
+   *
+   * @param[in] type The type of entity, light or base.
+   * @param[in] quantity The # of entities
+   *
+   * Specify the type and  number of the entities
+   * and add them into arena
+   */
   void AddEntity(EntityType type, int quantity);
 
   /**
-   * @brief
+   * @brief accept Accept communication from the controller.
+   *
+   * @param[in] com The communication from the controller.
+   * Accept communication from the controller. Dispatching as appropriate.
    */
   void AcceptCommand(Communication com);
 
@@ -83,9 +105,10 @@ class Arena {
   void Reset();
 
   /**
-   * @brief Get the Robot (there's only 1) in Arena.
+   * @brief Get the Robot vector in Arena.
    *
-   * @return A pointer to the Robot.
+   * * @param[out]  A Robot list.
+   * @return A Robot list.
    */
   class std::vector<class Robot *> robot() const { return robot_; }
 

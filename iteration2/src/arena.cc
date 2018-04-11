@@ -29,14 +29,14 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot(5,COWARD);
-  AddRobot(5,EXPLORE);
+  AddRobot(5, COWARD);
+  AddRobot(5, EXPLORE);
   AddEntity(kFood, 4);
   AddEntity(kLight, 4);
 
   // register sensor
-  for (auto ent1 : robot_){
-    for (auto ent2 : entities_){
+  for (auto ent1 : robot_) {
+    for (auto ent2 : entities_) {
       if (ent2->get_type() == kLight)
          dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
       if (ent2->get_type() == kFood)
@@ -108,7 +108,7 @@ void Arena::UpdateEntitiesTimestep() {
 
   for (auto ent : entities_) {
     if (ent->get_type() == kRobot) {
-      if(dynamic_cast<Robot *>(ent)->get_starve())
+      if (dynamic_cast<Robot *>(ent)->get_starve())
         game_status_ = LOST;
     }
   }
@@ -138,7 +138,7 @@ void Arena::UpdateEntitiesTimestep() {
       }
       if (IsColliding(ent1, ent2)) {
         AdjustEntityOverlap(ent1, ent2);
-        if (ent1->get_type() == kRobot){
+        if (ent1->get_type() == kRobot) {
           dynamic_cast<Robot *>(ent1)->HandleCollision(ent2->get_type(), ent2);
         } else {
           dynamic_cast<Light *>(ent1)->HandleCollision(ent2->get_type(), ent2);
@@ -224,23 +224,8 @@ void Arena::AdjustEntityOverlap(ArenaMobileEntity * const mobile_e,
 }
 
 // Accept communication from the controller. Dispatching as appropriate.
-/** @TODO: Call the appropriate Robot functions to implement user input
-  * for controlling the robot.
-  */
 void Arena::AcceptCommand(Communication com) {
   switch (com) {
-    case(kIncreaseSpeed):
-    //robot_->IncreaseSpeed();
-    break;
-    case(kDecreaseSpeed):
-    //robot_->DecreaseSpeed();
-    break;
-    case(kTurnLeft):
-    //robot_->TurnLeft();
-    break;
-    case(kTurnRight):
-    //robot_->TurnRight();
-    break;
     case(kReset):
     Reset();
     break;
@@ -249,6 +234,6 @@ void Arena::AcceptCommand(Communication com) {
     case(kNone):
     default: break;
   }
-} /* AcceptCommand */
+}
 
 NAMESPACE_END(csci3081);

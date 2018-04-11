@@ -47,7 +47,10 @@ class MotionHandlerRobot : public MotionHandler {
   /**
   * @brief Update the speed and the pose angle according to the sensor readings.
   *
-  * Currently does not change speed.
+  * If the connection is straight, left velocity is associated with left reading.
+  * Otherwise, left velocity is associated with right reading.
+  * If the connection is positive, the max reading causes max velocity.
+  * Otherwise,  the max reading causes min velocity.
   *
   * @param[in] pose The current pose.
   * @param[in] st A SensorTouch to be read.
@@ -74,14 +77,11 @@ class MotionHandlerRobot : public MotionHandler {
    */
   void TurnLeft() override;
 
-  //Sensor get_light_sensor() { return *light_sensor_;}
-  //void set_light_sensor(Sensor* sensor) { light_sensor_ = sensor;}
  private:
   double clamp_vel(double vel);
 
   bool turn_flag_ = false;
   int turn_step_ = 0;
-  //Sensor* light_sensor_ = new Sensor(kLight, ROBOT_RADIUS);
 };
 
 NAMESPACE_END(csci3081);

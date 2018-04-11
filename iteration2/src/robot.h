@@ -105,13 +105,13 @@ class Robot : public ArenaMobileEntity {
 
   Sensor* get_light_sensor() { return light_sensor_; }
   Sensor* get_food_sensor() { return food_sensor_; }
-  //void set_pose(const Pose &pose) { pose_ = pose; }
 
   MotionHandlerRobot get_motion_handler() { return motion_handler_; }
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_; }
 
   void set_pattern(Pattern p) {light_sensor_->set_pattern(p);}
+  Pattern get_pattern() { return light_sensor_->get_pattern();}
   /**
    * @brief Under certain circumstance, the compiler requires that the
    * assignment operator is not defined. This `deletes` the default
@@ -125,12 +125,6 @@ class Robot : public ArenaMobileEntity {
    */
   Robot(const Robot &other) = delete;
 
-  //void NotifySensor(Pose pos, double r);
-  //void resetSensorReading() {
-  //  light_sensor_.set_left_reading(0);
-  //  light_sensor_.set_right_reading(0);
-  //}
-
  private:
   // Manages pose and wheel velocities that change with time and collisions.
   MotionHandlerRobot motion_handler_;
@@ -140,8 +134,8 @@ class Robot : public ArenaMobileEntity {
   // When all the lives are gone, the game is lost.
   int lives_;
 
-  Sensor* light_sensor_ ;
-  Sensor* food_sensor_ ;
+  Sensor* light_sensor_;
+  Sensor* food_sensor_;
 
   bool hungry_;
   bool really_hungry_;

@@ -4,13 +4,14 @@
  * @copyright 2017 3081 Staff, All rights reserved.
  */
 
-#ifndef SRC_OBSTACLE_H_
-#define SRC_OBSTACLE_H_
+#ifndef SRC_LIGHT_H_
+#define SRC_LIGHT_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
+#include <vector>
 
 #include "src/arena_mobile_entity.h"
 #include "src/motion_handler_obstacle.h"
@@ -65,9 +66,14 @@ class Light : public ArenaMobileEntity {
    * button to work in GUI).
    */
   void Reset() override;
-
+  /**
+   * @brief Notify the list of registered sensor to calculate the reading
+   */
   void NotifySensor();
 
+  /**
+   * @brief Register every sensor of the robots.
+   */
   void RegisterSensor(Sensor *sensor);
 
   MotionHandlerLight get_motion_handler() { return motion_handler_;}
@@ -98,4 +104,4 @@ class Light : public ArenaMobileEntity {
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_OBSTACLE_H_
+#endif  // SRC_LIGHT_H_

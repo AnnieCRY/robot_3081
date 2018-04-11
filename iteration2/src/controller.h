@@ -62,11 +62,15 @@ class Controller {
 
   /**
    * @brief AcceptCommunication from either the viewer or the Arena
+   *
+   * @param[in] com The communication from the controller.
    */
   void AcceptCommunication(Communication com);
 
   /**
   * @brief Converts the communication from one to send to the other.
+  *
+  * @param[in] com The communication from the controller.
   *
   * Used primarily for testing purposes to insure communication is being
   * correctly received, interpreted, and relayed.
