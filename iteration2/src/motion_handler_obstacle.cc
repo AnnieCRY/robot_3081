@@ -58,11 +58,10 @@ double MotionHandlerLight::clamp_vel(double vel) {
 } /* clamp_vel() */
 
 void MotionHandlerLight::UpdateVelocity() {
-
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;
     turn_step_ = 0;
-    set_velocity(5,5);
+    set_velocity(5, 5);
     entity_->RelativeChangeHeading(+90);
   }
   // if obstacle collides with other objects, it will reverse in an arc

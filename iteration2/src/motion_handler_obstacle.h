@@ -64,9 +64,12 @@ class MotionHandlerLight : public MotionHandler {
   void DecreaseSpeed() override;
 
   /**
-   * @brief Turn the entity to the right by angle_delta (in degrees?)
+   * @brief Turn the entity to the left by angle_delta (in degrees?)
    */
   void TurnLeft() override;
+  /**
+  * @bref Turn the entity to the right by angle_delta
+  */
   void TurnRight() override;
 
  private:

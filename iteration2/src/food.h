@@ -11,12 +11,12 @@
  * Includes
  ******************************************************************************/
 #include <string>
+#include <vector>
 
 #include "src/arena_immobile_entity.h"
 #include "src/common.h"
 #include "src/entity_type.h"
 #include "src/sensor.h"
-
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -47,7 +47,7 @@ class Food : public ArenaImmobileEntity {
    */
   Food();
 
-   void TimestepUpdate(__unused unsigned int dt) override;
+  void TimestepUpdate(__unused unsigned int dt) override;
   /**
    * @brief Reset the Food using the initialization parameters received
    * by the constructor.

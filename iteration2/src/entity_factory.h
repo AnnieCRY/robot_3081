@@ -63,25 +63,29 @@ class EntityFactory {
   */
   ArenaEntity* CreateEntity(EntityType etype);
   /**
-  * @brief CreateRobot called from within CreateEntity.
+  * @brief Create Robot called from without CreateEntity.
+  *
+  * @param[in] p The pattern of rpbpt.
+  * @param[out] new created robot.
   */
- Robot* CreateRobot(Pattern p);
+  Robot* CreateRobot(Pattern p);
 
  private:
-
-
   /**
   * @brief CreateLight called from within CreateEntity.
+  * @param[out] new created light.
   */
   Light* CreateLight();
 
   /**
   * @brief CreateFood called from within CreateEntity.
+  * @param[out] new created food.
   */
   Food* CreateFood();
 
   /**
   * @brief An attempt to not overlap any of the newly constructed entities.
+  * @param[out] the randomly assigned position.
   */
   Pose SetPoseRandomly();
 

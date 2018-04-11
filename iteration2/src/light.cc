@@ -18,7 +18,7 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Light::Light():motion_handler_(this), motion_behavior_(this),sensors_({}){
+Light::Light():motion_handler_(this), motion_behavior_(this), sensors_({}) {
   set_color(OBSTACLE_COLOR);
   set_pose(OBSTACLE_POSITION);
   set_radius(OBSTACLE_RADIUS);
@@ -36,14 +36,13 @@ void Light::HandleCollision(EntityType object_type, ArenaEntity * object) {
     sensor_touch_->HandleCollision(object_type, object);
 }
 
-void Light::NotifySensor(){
-  for(auto &s: sensors_){
+void Light::NotifySensor() {
+  for ( auto &s : sensors_ ) {
     s->calculateReading(get_pose(), get_radius());
   }
-
 }
 
-void Light::RegisterSensor(Sensor *sensor){
+void Light::RegisterSensor(Sensor *sensor) {
   sensors_.push_back(sensor);
 }
 void Light::Reset() {

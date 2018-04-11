@@ -58,8 +58,10 @@ class GraphicsArenaViewer : public GraphicsApp {
   /**
    * @brief Constructor.
    *
-   * @param params A arena_params passed down from main.cc for the
+   * @param[in] params A arena_params passed down from main.cc for the
    * initialization of the Arena and the entities therein.
+   * @param[in] arena The arna viewer.
+   * @param[in] controller The controlling info from the controller
    */
   explicit GraphicsArenaViewer(const struct arena_params *const params,
                                Arena *arena, Controller *controller);

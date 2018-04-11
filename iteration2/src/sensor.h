@@ -45,12 +45,10 @@ class Sensor {
   Pose &get_left_position() { return position_left_; }
   void set_right_position(const Pose &p) { position_right_ = p; }
   Pose &get_right_position() { return position_right_; }
-  //void set_stimuli_position(const Pose &p) { stimuli_pose_ = p; }
-  //Pose &get_stimuli_position() { return stimuli_pose_; }
 
-  void set_left_reading( double dis) { left_reading_ = dis; }
+  void set_left_reading(double dis) { left_reading_ = dis; }
   double get_left_reading() { return left_reading_; }
-  void set_right_reading( double dis) { right_reading_ = dis; }
+  void set_right_reading(double dis) { right_reading_ = dis; }
   double get_right_reading() { return right_reading_; }
 
   void set_pattern(Pattern p) {pattern_ = p;}
@@ -61,18 +59,31 @@ class Sensor {
 
 
   /**
-   * @brief Modify heading to presumably move away from collision.
+   * @brief call by robot such that the position of sensor can be updated.
    *
-   * Currently, no information is used to determine point of contact. The
-   * heading should really only change when it collides with something in
-   * front of it (as opposed to something running into the entity from behind.)
-   * The ArenaEntity can be used to determine the point of contact.
+   * @param p The robot's position.
+   *
+   * robot would pass its sensor its current position
+   * The two sensors can update their position accrding to robot's position
    */
   void update(Pose p);
+
+  /**
+   * @brief The stimuli calls this function to push notifications to its sensors.
+   *
+   * @param p The position of stimulis.
+   * @param stimuliraius The radius of stimulis.
+   *
+   * update distance between sensor and stimulis
+   * sensor should be saturated when light source close
+   * readings for each stimuli are in range 0 to 250
+   * the total reading is in range 0 to 1000
+   * for food sensor it will also calculate if it consumed the food
+   */
   void calculateReading(Pose p, double stimuliraius);
 
   bool get_food_consumption() { return food_consumption_;}
-  void set_food_consumption (bool b) { food_consumption_ = b;}
+  void set_food_consumption(bool b) { food_consumption_ = b;}
 
 
 
@@ -86,9 +97,8 @@ class Sensor {
   Pattern pattern_;
   double robot_radius_;
   bool food_consumption_;
-
 };
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_SENSOR_TOUCH_H_
+#endif  // SRC_SENSOR_H_

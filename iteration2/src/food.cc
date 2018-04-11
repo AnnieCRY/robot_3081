@@ -37,15 +37,13 @@ void Food::Reset() {
   set_color(FOOD_COLOR);
   captured_ = false;
 } /* Reset */
-void Food::NotifySensor(){
-  for(auto &s: sensors_){
-    //std::cout<<get_pose().x<<"\n";
+void Food::NotifySensor() {
+  for ( auto &s : sensors_ ) {
     s->calculateReading(get_pose(), get_radius());
   }
-
 }
 
-void Food::RegisterSensor(Sensor *sensor){
+void Food::RegisterSensor(Sensor *sensor) {
   sensors_.push_back(sensor);
 }
 

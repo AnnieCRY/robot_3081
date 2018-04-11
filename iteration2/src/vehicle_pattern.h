@@ -1,10 +1,10 @@
 /**
  * @file pattern.h
- *
+ * @copyright 2018 Ruoyun
  */
 
-#ifndef SRC_PATTERN_H_
-#define SRC_PATTERN_H_
+#ifndef SRC_VEHICLE_PATTERN_H_
+#define SRC_VEHICLE_PATTERN_H_
 
 /*******************************************************************************
  * Includes
@@ -34,12 +34,13 @@ struct Pattern {
 
   /**
    * @brief Constructor
-   *
+   * @param positive_in True if the connection is positive, otherwise, negetive.
+   * @param direct_in True if the connection is direct, otherwise, crossed.
    */
   Pattern(bool positive_in, bool direct_in) :
-   positive(positive_in), direct(direct_in) {}
+  positive(positive_in), direct(direct_in) {}
 };
 
 NAMESPACE_END(csci3081);
 
-#endif  // SRC_pattern_H_
+#endif  // SRC_VEHICLE_PATTERN_H_

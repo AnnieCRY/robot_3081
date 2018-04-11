@@ -121,11 +121,15 @@ class ArenaEntity {
 
   /**
    * @brief Getter method for determining if entity can move or not.
+   *
+   * @param[out] True if entities is mobile.
    */
   bool is_mobile(void) { return is_mobile_; }
 
   /**
    * @brief Setter method for indicating if entity can move or not.
+   *
+   * @param[in] True if entities is mobile.
    */
   void set_mobility(bool value) { is_mobile_ = value; }
 
