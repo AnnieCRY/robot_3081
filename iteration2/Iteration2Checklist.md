@@ -35,7 +35,7 @@ but this status report can make it faster for us.
 | _Lights_ have avoidance behavior when colliding with a wall. |x|  |  |  |
 | _Lights_ have avoidance behavior when colliding with a light. |x|  |  |  |
 | _Lights_ pass through non-light entities. |x|  |  |  |
-| _Robots_ are visually distinct and moving (when appropriate<sup> [1] </sup>). |  |  |  |  |
+| _Robots_ are visually distinct and moving (when appropriate<sup> [1] </sup>). |x|  |  |  |
 | Robot sensors are displaying properly. |x|  |  |  |
 | _Robots_ have avoidance behavior when colliding with a wall. |x|  |  |  |
 | _Robots_ have avoidance behavior when colliding with a robot. |x|  |  |  |
@@ -93,8 +93,8 @@ but this status report can make it faster for us.
 
 When everything above is as you want it or it is 11:55pm on Tuesday, it is time to submit!
 
-- [ x] I pushed this file and any changes resulting from this checklist.
-- [ x] Everything is in the **__master__** branch.
+- [x] I pushed this file and any changes resulting from this checklist.
+- [x] Everything is in the **__master__** branch.
 
 _One more thing -- check that what you think you pushed was really pushed to github. If you can see it, we can see it. If you can't, we can't._
 
