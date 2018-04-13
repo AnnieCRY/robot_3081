@@ -44,13 +44,13 @@ void Robot::TimestepUpdate(unsigned int dt) {
   time_count_++;
 
   // set status of robot
-  if ( time_count_ > 300 )
+  if ( !no_food_ && time_count_ > 300 )
     hungry_ = true;
-  if ( time_count_ > 1200 )
+  if ( !no_food_ && time_count_ > 1200 )
     really_hungry_ = true;
-  if ( time_count_ > 1500 )
+  if ( !no_food_ && time_count_ > 1500 )
     starve_ = true;
-  if ( food_sensor_->get_food_consumption() ) {
+  if ( !no_food_ && food_sensor_->get_food_consumption()) {
     hungry_ = false;
     really_hungry_ = false;
     starve_ = false;
@@ -97,7 +97,7 @@ void Robot::Reset() {
         static_cast<double>((30 + (random() % 14) * 50))});
   motion_handler_.set_max_speed(ROBOT_MAX_SPEED);
   motion_handler_.set_max_angle(ROBOT_MAX_ANGLE);
-  lives_ = 9;
+  //lives_ = 9;
   motion_handler_.set_velocity(0, 0);
   sensor_touch_->Reset();
 } /* Reset() */

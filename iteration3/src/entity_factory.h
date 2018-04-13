@@ -68,7 +68,7 @@ class EntityFactory {
   * @param[in] p The pattern of rpbpt.
   * @param[out] new created robot.
   */
-  Robot* CreateRobot(Pattern p);
+  Robot* CreateRobot(Pattern p, float c, bool n);
 
  private:
   /**

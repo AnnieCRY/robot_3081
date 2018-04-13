@@ -30,24 +30,187 @@ GraphicsArenaViewer::GraphicsArenaViewer(
         params->y_dim,
         "Robot Simulation"),
     controller_(controller),
-    arena_(arena) {
+    arena_(arena), robot_count_(5), light_count_(3),
+    radio_(0.5), coefficient_(1.08), food_count_(5) {
   auto *gui = new nanogui::FormHelper(screen());
   nanogui::ref<nanogui::Window> window =
       gui->addWindow(
           Eigen::Vector2i(10 + GUI_MENU_GAP, 10),
           "Menu");
 
+ // vvvvvvvvvvvv    ADDED THIS ONE LINE to register the window  vvvvvvvvvvvv
+ // gui->addGroup creates a heading within the window
+  window->setLayout(new nanogui::GroupLayout());
+
   gui->addGroup("Simulation Control");
   playing_button_ =
     gui->addButton(
       "Playing",
       std::bind(&GraphicsArenaViewer::OnPlayingBtnPressed, this));
+
+
+  // Without fixing the width, the button will span the entire window
+  playing_button_->setFixedWidth(100);
+
+  // vvvvvvvvvv  ADDED BELOW HERE (from nanogui example1.cc)   vvvvvvvvvvvvvvvvvvvvvvv
+
+  gui->addGroup("Arena Configuration");
+
+  // Creating a panel impacts the layout. Widgets, sliders, buttons can be
+  // assigned to either the window or the panel.
+  nanogui::Widget *panel = new nanogui::Widget(window);
+
+  // *************** SLIDER 1 ************************//
+  new nanogui::Label(panel, "Number of Robots", "sans-bold");
+  nanogui::Slider *slider = new nanogui::Slider(panel);
+  // The starting value (range is from 0 to 1)
+  // Note that below the displayed value is 10* slider value.
+  slider->setValue(0.5f);
+  slider->setFixedWidth(100);
+
+  // Display the corresponding value of the slider in this textbox
+  nanogui::TextBox *textBox = new nanogui::TextBox(panel);
+  textBox->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox->setFontSize(20);
+  textBox->setValue("5");
+
+  // This is the lambda function called while the user is moving the slider
+  slider->setCallback(
+    [textBox](float value) {
+      textBox->setValue(std::to_string(int(value*10)));
+    }
+  );
+  // This is the lambda function called once the user is no longer manipulating the slider.
+  // Note robot_count_ is set, which is a graphics_arena_ variable in this version, although
+  // you should communicate that value to the controller so that it can configure the Arena.
+  slider->setFinalCallback(
+    [&](float value) {
+      robot_count_ = int(value*10);
+      // std::cout << "Final slider value: " << value;
+      // std::cout << " robot " << robot_count_ << std::endl;
+        }
+  );
+
+  // *************** SLIDER 2 ************************//
+  new nanogui::Label(panel, "Number of Lights", "sans-bold");
+  nanogui::Slider *slider2 = new nanogui::Slider(panel);
+  slider2->setValue(0.0f);
+  slider2->setFixedWidth(100);
+  //textBox->setUnits("%");
+
+  nanogui::TextBox *textBox2 = new nanogui::TextBox(panel);
+  textBox2->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox2->setFontSize(20);
+  textBox2->setValue("0");
+  //textBox2->setAlignment(nanogui::TextBox::Alignment::Right);
+
+  slider2->setCallback(
+    [textBox2](float value) {
+      textBox2->setValue(std::to_string(int(value*5)));
+    }
+  );
+
+  slider2->setFinalCallback(
+    [&](float value) {
+      light_count_ = int(value*5);
+    }
+  );
+  // *************** SLIDER 3 ************************//
+  new nanogui::Label(panel, "Radio of Fear Robots to explore", "sans-bold");
+  nanogui::Slider *slider3 = new nanogui::Slider(panel);
+  slider3->setValue(0.5f);
+  slider3->setFixedWidth(100);
+
+  // Display the corresponding value of the slider in this textbox
+  nanogui::TextBox *textBox3 = new nanogui::TextBox(panel);
+  textBox3->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox3->setFontSize(20);
+  textBox3->setValue("50%");
+
+  // This is the lambda function called while the user is moving the slider
+  slider3->setCallback(
+    [textBox3](float value) {
+      textBox3->setValue(std::to_string(int(value*100))+"%");
+    }
+  );
+  slider3->setFinalCallback(
+    [&](float value) {
+      radio_ = value;
+        }
+  );
+  // *************** SLIDER 4 ************************//
+  new nanogui::Label(panel, "Sensitivity of Light Sensor", "sans-bold");
+  nanogui::Slider *slider4 = new nanogui::Slider(panel);
+  slider4->setValue(0.5f);
+  slider4->setFixedWidth(100);
+
+  // Display the corresponding value of the slider in this textbox
+  nanogui::TextBox *textBox4 = new nanogui::TextBox(panel);
+  textBox4->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox4->setFontSize(20);
+  textBox4->setValue("1.08");
+
+  // This is the lambda function called while the user is moving the slider
+  slider4->setCallback(
+    [textBox4](float value) {
+      float v = int((value+1)*100);
+      textBox4->setValue(std::to_string(v)+"%");
+    }
+  );
+  slider4->setFinalCallback(
+    [&](float value) {
+      coefficient_ = value + 1;
+      //std::cout << "Final slider value: " << value;
+      //std::cout << " robot " << fear_robot_count_ << std::endl;
+        }
+  );
+  // *************** no food button ************************//
+  food_button_ =
+    gui->addButton(
+    "No Food",
+    std::bind(&GraphicsArenaViewer::OnNoFoodBtnPressed, this));
+  // *************** SLIDER 5 ************************//
+  new nanogui::Label(panel, "Number of Food", "sans-bold");
+  nanogui::Slider *slider5 = new nanogui::Slider(panel);
+  slider5->setValue(0.5f);
+  slider5->setFixedWidth(100);
+
+  // Display the corresponding value of the slider in this textbox
+  nanogui::TextBox *textBox5 = new nanogui::TextBox(panel);
+  textBox5->setFixedSize(nanogui::Vector2i(60, 25));
+  textBox5->setFontSize(20);
+  textBox5->setValue("5");
+
+  // This is the lambda function called while the user is moving the slider
+  slider5->setCallback(
+    [textBox5](float value) {
+      textBox5->setValue(std::to_string(int(value*10)));
+    }
+  );
+  slider5->setFinalCallback(
+    [&](float value) {
+      food_count_ = int(value *10);
+      //std::cout << "Final slider value: " << value;
+      //std::cout << " robot " << fear_robot_count_ << std::endl;
+        }
+  );
+  // Lays out all the components with "15" units of inbetween spacing
+  panel->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Vertical, nanogui::Alignment::Middle, 0, 15));
+
+  // ^^^^^^^^^^^^^^^^^^^^^^    ADDED TO HERE (modification of nanogui example1.cc)  ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+
   gui->addButton(
     "New Game",
     std::bind(&GraphicsArenaViewer::OnRestartBtnPressed, this));
   paused_ = true;
   screen()->setSize({X_DIM, Y_DIM});
   screen()->performLayout();
+  //screen()->setSize({X_DIM, Y_DIM});
+  //screen()->performLayout();
 }
 
 /*******************************************************************************
@@ -76,9 +239,20 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
 }
 
 void GraphicsArenaViewer::OnRestartBtnPressed() {
+  controller_->Configuration(robot_count_, light_count_, radio_, coefficient_, food_count_);
   controller_->AcceptCommunication(kNewGame);
   playing_button_->setCaption("Play");
   paused_ = true;
+}
+
+void GraphicsArenaViewer::OnNoFoodBtnPressed() {
+  // Not implemented. Sample code provided to show how to implement.
+  if (!no_food_) {
+    food_button_->setCaption("Food");
+  } else {
+    food_button_->setCaption("No Food");
+  }
+  no_food_ = !no_food_;
 }
 
 /** OnSpecialKeyDown is called when the user presses down on one of the
