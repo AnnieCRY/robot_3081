@@ -26,7 +26,8 @@ Sensor::Sensor(EntityType type, double r) :
   stimuli_type_(type),
   pattern_(AGGRESSIVE),
   robot_radius_(r),
-  food_consumption_(false) {}
+  food_consumption_(false),
+  coefficient_(1.08) {}
 
 /*******************************************************************************
  * Member Functions
@@ -60,7 +61,7 @@ void Sensor::calculateReading(Pose p, double stimuliraius) {
   if (dis_l <= 0) {
     reading_temp_l = MAX_READING_FOR_ONE;
   } else {
-    reading_temp_l = 1200 / dis_l;
+    reading_temp_l = coefficient_*1200 / dis_l;
     if (reading_temp_l> MAX_READING_FOR_ONE)
       reading_temp_l = MAX_READING_FOR_ONE;
   }
@@ -74,7 +75,7 @@ void Sensor::calculateReading(Pose p, double stimuliraius) {
   if (dis_r <= 0) {
     reading_temp_r = MAX_READING_FOR_ONE;
   } else {
-    reading_temp_r = 1200 / dis_r;
+    reading_temp_r = coefficient_*1200 / dis_r;
     if (reading_temp_r> MAX_READING_FOR_ONE)
       reading_temp_r = MAX_READING_FOR_ONE;
   }

@@ -29,10 +29,10 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot(5, COWARD);
-  AddRobot(5, EXPLORE);
-  AddEntity(kFood, 4);
-  AddEntity(kLight, 4);
+  //AddRobot(robot_count_, COWARD);
+  //AddRobot(5, EXPLORE);
+  //AddEntity(kFood, 4);
+  //AddEntity(kLight, 4);
 
   // register sensor
   for (auto ent1 : robot_) {
@@ -55,9 +55,9 @@ Arena::~Arena() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void Arena::AddRobot(int quantity, Pattern p) {
+void Arena::AddRobot(int quantity, Pattern p, float c, bool n) {
   for (int i = 0; i < quantity; i++) {
-    Robot* r = dynamic_cast<Robot *>(factory_->CreateRobot(p));
+    Robot* r = dynamic_cast<Robot *>(factory_->CreateRobot(p, c, n));
     robot_.push_back(r);
     entities_.push_back(r);
     mobile_entities_.push_back(r);

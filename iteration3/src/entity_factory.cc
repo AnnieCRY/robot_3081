@@ -46,7 +46,7 @@ ArenaEntity* EntityFactory::CreateEntity(EntityType etype) {
   return nullptr;
 }
 
-Robot* EntityFactory::CreateRobot(Pattern p) {
+Robot* EntityFactory::CreateRobot(Pattern p, float c, bool n) {
   auto* robot = new Robot;
   robot->set_type(kRobot);
   robot->set_color(ROBOT_COLOR);
@@ -54,6 +54,8 @@ Robot* EntityFactory::CreateRobot(Pattern p) {
   robot->set_radius(static_cast<double>(ROBOT_MIN_RADIUS +
     random() % (ROBOT_MAX_RADIUS - ROBOT_MIN_RADIUS)));
   robot->set_pattern(p);
+  robot->set_sensitivity(c);
+  robot->set_no_food(n);
   ++entity_count_;
   ++robot_count_;
   robot->set_id(robot_count_);

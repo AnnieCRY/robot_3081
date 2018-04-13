@@ -54,6 +54,8 @@ class Sensor {
   void set_pattern(Pattern p) {pattern_ = p;}
   Pattern get_pattern() { return pattern_;}
 
+  void set_sensitivity(float c) {coefficient_ = c;}
+
   void set_robot_radius(double r) {robot_radius_ = r;}
   double get_robot_radius() { return robot_radius_;}
 
@@ -97,6 +99,7 @@ class Sensor {
   Pattern pattern_;
   double robot_radius_;
   bool food_consumption_;
+  float coefficient_;
 };
 
 NAMESPACE_END(csci3081);

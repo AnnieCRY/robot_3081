@@ -81,4 +81,26 @@ Communication Controller::ConvertComm(Communication com) {
   return com;
 }
 
+void Controller::Configuration(int robot_count_, int light_count_,
+  float radio_, float coefficient_, int food_count_) {
+  int fear_robot_count_ = int(radio_ * robot_count_);
+  arena_->ResetConfig();
+  arena_->AddRobot(fear_robot_count_, COWARD, coefficient_, viewer_->get_no_food());
+  arena_->AddRobot(robot_count_ - fear_robot_count_, EXPLORE,
+    coefficient_, viewer_->get_no_food());
+  if (!viewer_->get_no_food()) {
+    arena_->AddEntity(kFood, food_count_);
+  }
+  arena_->AddEntity(kLight, light_count_);
+  // register sensor
+  for (auto ent1 : arena_->get_robot()) {
+    for (auto ent2 : arena_->get_entities()) {
+      if (ent2->get_type() == kLight)
+         dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
+      if (ent2->get_type() == kFood)
+         dynamic_cast<Food*>(ent2)->RegisterSensor(ent1->get_food_sensor());
+    }
+  }
+}
+
 NAMESPACE_END(csci3081);

@@ -94,7 +94,12 @@ class GraphicsArenaViewer : public GraphicsApp {
    * This will restart the game
    */
   void OnRestartBtnPressed();
-
+  /**
+   * @brief Handle the user pressing the No food button on the GUI.
+   *
+   * This will let robot not sense food.
+   */
+  void OnNoFoodBtnPressed();
   /**
    * @brief Called each time the mouse moves on the screen within the GUI
    * window.
@@ -208,6 +213,8 @@ class GraphicsArenaViewer : public GraphicsApp {
    */
   GraphicsArenaViewer(const GraphicsArenaViewer &other) = delete;
 
+  bool get_no_food() { return no_food_; }
+
  private:
   void DrawArena(NVGcontext *ctx);
   /**
@@ -238,6 +245,14 @@ class GraphicsArenaViewer : public GraphicsApp {
 
   // buttons
   nanogui::Button *playing_button_{nullptr};
+  nanogui::Button *food_button_{nullptr};
+  //
+  int robot_count_;
+  int light_count_;
+  float radio_;
+  float coefficient_;
+  int food_count_;
+  bool no_food_ = false;
 };
 
 NAMESPACE_END(csci3081);

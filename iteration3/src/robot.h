@@ -112,6 +112,8 @@ class Robot : public ArenaMobileEntity {
 
   void set_pattern(Pattern p) {light_sensor_->set_pattern(p);}
   Pattern get_pattern() { return light_sensor_->get_pattern();}
+  void set_sensitivity(float c) {light_sensor_->set_sensitivity(c);}
+  void set_no_food(bool n) { no_food_ = n;}
   /**
    * @brief Under certain circumstance, the compiler requires that the
    * assignment operator is not defined. This `deletes` the default
@@ -141,6 +143,7 @@ class Robot : public ArenaMobileEntity {
   bool really_hungry_;
   bool starve_;
   int time_count_;
+  bool no_food_ = false;
 };
 
 NAMESPACE_END(csci3081);
