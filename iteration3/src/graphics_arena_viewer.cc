@@ -244,6 +244,7 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
 void GraphicsArenaViewer::OnRestartBtnPressed() {
   if(paused_) {
     if (food_count_ == 0) {
+      no_food_ = false;
       OnNoFoodBtnPressed();
     }
     controller_->Configuration(robot_count_, light_count_, radio_, coefficient_, food_count_);
