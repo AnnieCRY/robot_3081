@@ -169,6 +169,11 @@ GraphicsArenaViewer::GraphicsArenaViewer(
     gui->addButton(
     "No Food",
     std::bind(&GraphicsArenaViewer::OnNoFoodBtnPressed, this));
+
+  //new nanogui::Label(panel, "Food", "sans-bold");
+  //food_button_ = new CheckBox(panel, "flag",
+  //  [](bool state) {});
+  //cb->setChecked(true);
   // *************** SLIDER 5 ************************//
   new nanogui::Label(panel, "Number of Food", "sans-bold");
   nanogui::Slider *slider5 = new nanogui::Slider(panel);
@@ -198,8 +203,6 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   panel->setLayout(new nanogui::BoxLayout(nanogui::Orientation::Vertical, nanogui::Alignment::Middle, 0, 15));
 
   // ^^^^^^^^^^^^^^^^^^^^^^    ADDED TO HERE (modification of nanogui example1.cc)  ^^^^^^^^^^^^^^^^^^^^^^^^
-
-
 
 
 
@@ -239,10 +242,15 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
 }
 
 void GraphicsArenaViewer::OnRestartBtnPressed() {
-  controller_->Configuration(robot_count_, light_count_, radio_, coefficient_, food_count_);
-  controller_->AcceptCommunication(kNewGame);
-  playing_button_->setCaption("Play");
-  paused_ = true;
+  if(paused_) {
+    if (food_count_ == 0) {
+      OnNoFoodBtnPressed();
+    }
+    controller_->Configuration(robot_count_, light_count_, radio_, coefficient_, food_count_);
+    controller_->AcceptCommunication(kNewGame);
+    playing_button_->setCaption("Play");
+    paused_ = true;
+  }
 }
 
 void GraphicsArenaViewer::OnNoFoodBtnPressed() {
