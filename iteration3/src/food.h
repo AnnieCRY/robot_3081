@@ -53,9 +53,17 @@ class Food : public ArenaImmobileEntity {
    * by the constructor.
    */
   void Reset() override;
-
+  /**
+   * @brief Notify the list of registered sensor to calculate the reading
+   */
   void NotifySensor();
-
+  /**
+   * @brief remove all the registered sensors.
+   */
+  void RemoveSensors() { sensors_.clear(); } 
+  /**
+  * @brief Register every sensor of the robots.
+  */
   void RegisterSensor(Sensor *sensor);
   /**
    * @brief Get the name of the Food for visualization purposes, and to

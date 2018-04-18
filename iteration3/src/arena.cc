@@ -29,10 +29,10 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  //AddRobot(robot_count_, COWARD);
-  //AddRobot(5, EXPLORE);
-  //AddEntity(kFood, 4);
-  //AddEntity(kLight, 4);
+  AddRobot(5, COWARD,1.08,false);
+  AddRobot(5, EXPLORE,1.08,false);
+  AddEntity(kFood,5);
+  AddEntity(kLight, 4);
 
   // register sensor
   for (auto ent1 : robot_) {
@@ -41,7 +41,6 @@ Arena::Arena(const struct arena_params *const params)
          dynamic_cast<Light*>(ent2)->RegisterSensor(ent1->get_light_sensor());
       if (ent2->get_type() == kFood)
          dynamic_cast<Food*>(ent2)->RegisterSensor(ent1->get_food_sensor());
-        // dynamic_cast<Food*>(ent2)->NotifySensor();
     }
   }
 }
