@@ -246,7 +246,11 @@ class GraphicsArenaViewer : public GraphicsApp {
   // buttons
   nanogui::Button *playing_button_{nullptr};
   nanogui::Button *food_button_{nullptr};
-  //
+  nanogui::Button *reset_button_{nullptr};
+  // panel
+  //nanogui::
+  nanogui::Widget *panel{nullptr};
+
   int robot_count_;
   int light_count_;
   float radio_;

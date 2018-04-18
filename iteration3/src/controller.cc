@@ -92,6 +92,14 @@ void Controller::Configuration(int robot_count_, int light_count_,
     arena_->AddEntity(kFood, food_count_);
   }
   arena_->AddEntity(kLight, light_count_);
+
+  //remove previously registerred sensors
+  for(auto ent : arena_->get_entities()) {
+      if (ent->get_type() == kLight)
+         dynamic_cast<Light*>(ent)->RemoveSensors();
+      if (ent->get_type() == kFood)
+         dynamic_cast<Food*>(ent)->RemoveSensors();
+  }
   // register sensor
   for (auto ent1 : arena_->get_robot()) {
     for (auto ent2 : arena_->get_entities()) {

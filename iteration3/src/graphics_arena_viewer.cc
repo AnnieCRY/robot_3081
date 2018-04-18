@@ -30,12 +30,12 @@ GraphicsArenaViewer::GraphicsArenaViewer(
         params->y_dim,
         "Robot Simulation"),
     controller_(controller),
-    arena_(arena), robot_count_(5), light_count_(3),
+    arena_(arena), robot_count_(10), light_count_(4),
     radio_(0.5), coefficient_(1.08), food_count_(5) {
   auto *gui = new nanogui::FormHelper(screen());
   nanogui::ref<nanogui::Window> window =
       gui->addWindow(
-          Eigen::Vector2i(10 + GUI_MENU_GAP, 10),
+          Eigen::Vector2i(X_DIM + GUI_MENU_GAP, 10),
           "Menu");
 
  // vvvvvvvvvvvv    ADDED THIS ONE LINE to register the window  vvvvvvvvvvvv
@@ -58,21 +58,21 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 
   // Creating a panel impacts the layout. Widgets, sliders, buttons can be
   // assigned to either the window or the panel.
-  nanogui::Widget *panel = new nanogui::Widget(window);
+  panel = new nanogui::Widget(window);
 
   // *************** SLIDER 1 ************************//
   new nanogui::Label(panel, "Number of Robots", "sans-bold");
   nanogui::Slider *slider = new nanogui::Slider(panel);
   // The starting value (range is from 0 to 1)
   // Note that below the displayed value is 10* slider value.
-  slider->setValue(0.5f);
+  slider->setValue(1.0f);
   slider->setFixedWidth(100);
 
   // Display the corresponding value of the slider in this textbox
   nanogui::TextBox *textBox = new nanogui::TextBox(panel);
   textBox->setFixedSize(nanogui::Vector2i(60, 25));
   textBox->setFontSize(20);
-  textBox->setValue("5");
+  textBox->setValue("10");
 
   // This is the lambda function called while the user is moving the slider
   slider->setCallback(
@@ -94,14 +94,14 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   // *************** SLIDER 2 ************************//
   new nanogui::Label(panel, "Number of Lights", "sans-bold");
   nanogui::Slider *slider2 = new nanogui::Slider(panel);
-  slider2->setValue(0.0f);
+  slider2->setValue(0.8f);
   slider2->setFixedWidth(100);
   //textBox->setUnits("%");
 
   nanogui::TextBox *textBox2 = new nanogui::TextBox(panel);
   textBox2->setFixedSize(nanogui::Vector2i(60, 25));
   textBox2->setFontSize(20);
-  textBox2->setValue("0");
+  textBox2->setValue("4");
   //textBox2->setAlignment(nanogui::TextBox::Alignment::Right);
 
   slider2->setCallback(
@@ -153,13 +153,13 @@ GraphicsArenaViewer::GraphicsArenaViewer(
   // This is the lambda function called while the user is moving the slider
   slider4->setCallback(
     [textBox4](float value) {
-      float v = int((value+1)*100);
-      textBox4->setValue(std::to_string(v)+"%");
+      float v = 2*value + 0.5;
+      textBox4->setValue(std::to_string(int(v))+"."+std::to_string(int(v*100)%100));
     }
   );
   slider4->setFinalCallback(
     [&](float value) {
-      coefficient_ = value + 1;
+      coefficient_ = 2*value + 0.5;
       //std::cout << "Final slider value: " << value;
       //std::cout << " robot " << fear_robot_count_ << std::endl;
         }
@@ -170,10 +170,6 @@ GraphicsArenaViewer::GraphicsArenaViewer(
     "No Food",
     std::bind(&GraphicsArenaViewer::OnNoFoodBtnPressed, this));
 
-  //new nanogui::Label(panel, "Food", "sans-bold");
-  //food_button_ = new CheckBox(panel, "flag",
-  //  [](bool state) {});
-  //cb->setChecked(true);
   // *************** SLIDER 5 ************************//
   new nanogui::Label(panel, "Number of Food", "sans-bold");
   nanogui::Slider *slider5 = new nanogui::Slider(panel);
@@ -206,11 +202,11 @@ GraphicsArenaViewer::GraphicsArenaViewer(
 
 
 
-  gui->addButton(
+  reset_button_ = gui->addButton(
     "New Game",
     std::bind(&GraphicsArenaViewer::OnRestartBtnPressed, this));
   paused_ = true;
-  screen()->setSize({X_DIM, Y_DIM});
+  screen()->setSize({X_DIM + GUI_MENU_WIDTH + GUI_MENU_GAP*2, Y_DIM});
   screen()->performLayout();
   //screen()->setSize({X_DIM, Y_DIM});
   //screen()->performLayout();
@@ -235,8 +231,11 @@ void GraphicsArenaViewer::OnPlayingBtnPressed() {
   // Not implemented. Sample code provided to show how to implement.
   if (!paused_) {
     playing_button_->setCaption("Play");
+    //panel->setEnabled(false);
+    reset_button_->setEnabled(true);
   } else {
     playing_button_->setCaption("Pause");
+    reset_button_->setEnabled(false);
   }
   paused_ = !paused_;
 }
