@@ -59,18 +59,22 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
     turn_step_ = 0;
   }
 
-  Pattern robotic_controls = sensor->get_pattern();
-  double v_left = sensor->get_left_reading()/10.0;
-  double v_right = sensor->get_right_reading()/10.0;
+  // Pattern robotic_controls = sensor->get_pattern();
+  // double v_left = sensor->get_left_reading()/10.0;
+  // double v_right = sensor->get_right_reading()/10.0;
 
-  if (!robotic_controls.positive) {
-    v_left = get_max_speed() - v_left;
-    v_right = get_max_speed() - v_right;
-  }
-  if (robotic_controls.direct) {
-    set_velocity(clamp_vel(v_left), clamp_vel(v_right));
+  if (!sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    set_velocity(clamp_vel(get_max_speed() - left_reading(sensor)),
+    clamp_vel(get_max_speed() - right_reading(sensor)));
+  } else if (sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    set_velocity(clamp_vel(left_reading(sensor)),
+    clamp_vel(right_reading(sensor)));
+  } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct){
+    set_velocity(clamp_vel(right_reading(sensor)),
+    clamp_vel(left_reading(sensor)));
   } else {
-    set_velocity(clamp_vel(v_right), clamp_vel(v_left));
+    set_velocity(clamp_vel(get_max_speed() - right_reading(sensor)),
+    clamp_vel(get_max_speed() - left_reading(sensor)));
   }
 }
 

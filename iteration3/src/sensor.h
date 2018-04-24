@@ -87,6 +87,32 @@ class Sensor {
   bool get_food_consumption() { return food_consumption_;}
   void set_food_consumption(bool b) { food_consumption_ = b;}
 
+  /**
+   * @brief calculate the distance between two position
+   *
+   * @param p1 the first position
+   * @param p2 the second position
+   * @param r the radius of stimuli
+   *
+   * calculate the distance between the sensor and the stimuli
+   * or the robot and stimuli. The distance return is the distance
+   * between the center of two object minus the radius of stimuli.
+   *
+   */
+   double distance(Pose p1, Pose p2, double r) {
+     return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y))
+     - r;
+   }
+   /**
+    * @brief calculate the reading according to the distance
+    * between the sensor and one stimuli
+    *
+    * @param dis The the distance between the sensor and one stimuli
+    * return a temporary reading of one stimuli that would be used later in
+    * calulateReading()
+    *
+    */
+   double calculateReadingbyDistance(double dis);
 
 
  private:
