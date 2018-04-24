@@ -50,27 +50,7 @@ void Sensor::calculateReading(Pose p, double stimuliradius) {
       food_consumption_ = true;
     //food_consumption_ = food_consumption_ || food_consumption_temp;
   }
-  /*double reading_temp_l;
 
-  if (distance(p, position_left_, stimuliradius) <= 0) {
-    reading_temp_l = MAX_READING_FOR_ONE;
-  } else {
-    reading_temp_l =
-    coefficient_*1200 / distance(p, position_left_, stimuliradius);
-    if (reading_temp_l> MAX_READING_FOR_ONE)
-      reading_temp_l = MAX_READING_FOR_ONE;
-  }
-
-  double reading_temp_r;
-
-  if (distance(p, position_right_, stimuliradius) <= 0) {
-    reading_temp_r = MAX_READING_FOR_ONE;
-  } else {
-    reading_temp_r =
-    coefficient_*1200 / distance(p, position_right_, stimuliradius);
-    if (reading_temp_r> MAX_READING_FOR_ONE)
-      reading_temp_r = MAX_READING_FOR_ONE;
-  }*/
   left_reading_ += calculateReadingbyDistance(
     distance(p, position_left_, stimuliradius));
   right_reading_ += calculateReadingbyDistance(
