@@ -2,13 +2,13 @@
 
 #### Changed files and methods:
 <ul>
-	<li><a ref="## graphic_arena_viewer.cc">graphicsArenaViewer::DrawRobot</a>
-    <li><a ref="## motion_handler_robot.cc">MotionHandlerRobot::UpdateVelocitybySensor</a>
-    <li><a ref="## sensor.cc">Sensor::calculateReading</a>
+	<li><a ref="#graphic">graphicsArenaViewer::DrawRobot</a>
+    <li><a ref="#motion">MotionHandlerRobot::UpdateVelocitybySensor</a>
+    <li><a ref="#sensor">Sensor::calculateReading</a>
 </ul>
 
 
-## graphic_arena_viewer.cc
+## <a name="graphic">graphic_arena_viewer.cc</a>
  - Temporary variable was defined in:
    ```cpp
    void GraphicsArenaViewer::DrawRobot(NVGcontext *stx, const Robot *const robt) 
@@ -19,7 +19,7 @@
    
    I use ```robot->get_name()``` and the string '/', '\\' directly in ```nvgText()``` as a parameter, thus removing the need for these three temps.
 
-## motion_handler_robot.cc
+## <a name="motion">motion_handler_robot.cc</a>
 
   - Temporary variable was defined in:
     ```cpp
@@ -28,7 +28,6 @@
     * line 62 ``` Pattern robotic_controls = sensor->get_pattern();```
 
     In line 66, I used ```!sensor->get_pattern().positive``` instead of ```!robotic_controls.positive``` to check the control pattern of the robot. Similarly, I don't need the temporary temp ```robotic_controls``` in line 70. Therefore. we can change the methods to support chaining and remove this temp.
-    
 #
    - Temporary variable was defined in:
      ```cpp
@@ -40,9 +39,32 @@
      I added new method ```void left_reading(Sensor* sensor)``` and ```void right_reading(Sensor* sensor)``` in ```MotionHandlerRobot``` to replace ```v_left``` and ```v_right```. 
 
      Since ```v_left``` and ```v_right``` are not final velocity of robot wheel, ```void left_reading(Sensor* sensor)```and ```void right_reading(Sensor* sensor)``` only returns the motified reading of the sensor. Besides, I checked four different connections other than the value of ```positive``` and ```direct```, so that I could set the velocity right  after checking the control connection, and the use of the temps can be avoided.
+     
+     ```cpp
+     double left_reading(Sensor* sensor) {return sensor->get_left_reading()/10.0;}
+     ```
+     ```cpp
+     double right_reading(Sensor* sensor) {return sensor->get_right_reading()/10.0;}
+     ```
+     ```cpp
+      if (!sensor->get_pattern().positive && sensor->get_pattern().direct) {
+        set_velocity(clamp_vel(get_max_speed() - left_reading(sensor)),
+        clamp_vel(get_max_speed() - right_reading(sensor)));
+      } else if (sensor->get_pattern().positive && sensor->get_pattern().direct) {
+        set_velocity(clamp_vel(left_reading(sensor)),
+        clamp_vel(right_reading(sensor)));
+      } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct){
+        set_velocity(clamp_vel(right_reading(sensor)),
+        clamp_vel(left_reading(sensor)));
+      } else {
+        set_velocity(clamp_vel(get_max_speed() - right_reading(sensor)),
+        clamp_vel(get_max_speed() - left_reading(sensor)));
+      }
+      ```
+     
 
 
-## sensor.cc
+## <a name="sensor">sensor.cc</a>
  
  - Temporary variable was defined in:
      ```cpp
@@ -60,6 +82,11 @@
 	I created a genral method ```double distance(Pose p1, Pose p2, double r)``` in ```Sensor``` to calculate distance between two position. Therefore the temporary variables that previously used are not need any more. 
     
     ```dis``` which compute the distance between robot and stimuli can be relplaced as ```distance(p, robot_pose_, stimuliradius)```. Similary, ```dis_l``` which compute the distance between left sensor and stimuli can be relplaced as ```distance(p, position_left_, stimuliradius)```, and ```dis_r``` can be replaced as ```distance(p, position_right_, stimuliradius)```.
+    ```cpp
+    double distance(Pose p1, Pose p2, double r) {
+     return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) - r;
+   }
+   ```
 #
 - Temporary variable was defined in:
 	```cpp
@@ -78,3 +105,13 @@
    	 
      I add a new method ```double  Sensor::calculateReadingbyDistance(double dis)``` in sensor.cc line 65-73. This new function is called when accumulating the reading in ```void Sensor::calculateReading(Pose p, double stimuliraius)```.
      ```calculateReadingbyDistance``` calculate the left and right reading for one stimuli here. This function basically calculates the reading accoring to the distance between the sensor and stimuli.
+     ```cpp
+     double  Sensor::calculateReadingbyDistance(double dis) {
+        if (dis <= 0) {
+          return MAX_READING_FOR_ONE;
+        } else {
+          return  coefficient_*1200 / dis < MAX_READING_FOR_ONE?
+          coefficient_*1200 / dis: MAX_READING_FOR_ONE;
+        }
+      }
+     ```
