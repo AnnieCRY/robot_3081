@@ -17,7 +17,7 @@
    	* line 142 ```std::string robot_sensor_lf = "/";```
    	* line 146 ```std::string robot_sensor_rt = "\\";```
    
-   I use ```robot->get_name()``` and the string '/', '\\' directly in ```nvgText()``` as a parameter, thus removing the need for these three temps.
+   I used ```robot->get_name()``` and the string '/', '\\' directly in ```nvgText()``` as a parameter, thus removing the need for these three temps.
 
 ## <a name="motion">motion_handler_robot.cc</a>
 
@@ -94,7 +94,7 @@
     ```
    	 * line 49 ``` bool food_consumption_temp = false;```
 
-	I replace this temp with neither query nor chain. I change the logic of my code to avoid using this temp. I used ```food_consumption_ = food_consumption_ || food_consumption_temp``` to check if the robot consume any food, but I can simply set ```food_consumption_``` to be true once it consumes one food. 
+	I replaced this temp with neither query nor chain. I changed the logic of my code to avoid using this temp. I used ```food_consumption_ = food_consumption_ || food_consumption_temp``` to check if the robot consume any food, but I can simply set ```food_consumption_``` to be true once it consumes one food. 
 #
 - Temporary variable was defined in:
    ```cpp
@@ -103,7 +103,7 @@
    	* line 54 ```double reading_temp_l;```
    	* line 68 ```double reading_temp_r;```
    	 
-     I add a new method ```double  Sensor::calculateReadingbyDistance(double dis)``` in sensor.cc line 65-73. This new function is called when accumulating the reading in ```void Sensor::calculateReading(Pose p, double stimuliraius)```.
+     I added a new method ```double  Sensor::calculateReadingbyDistance(double dis)``` in sensor.cc line 65-73. This new function is called when accumulating the reading in ```void Sensor::calculateReading(Pose p, double stimuliraius)```.
      ```calculateReadingbyDistance``` calculate the left and right reading for one stimuli here. This function basically calculates the reading accoring to the distance between the sensor and stimuli.
      ```cpp
      double  Sensor::calculateReadingbyDistance(double dis) {
