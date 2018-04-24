@@ -2,9 +2,9 @@
 
 #### Changed files and methods:
 <ul>
-	<li><a ref="#graphic">graphicsArenaViewer::DrawRobot</a>
-    <li><a ref="#motion">MotionHandlerRobot::UpdateVelocitybySensor</a>
-    <li><a ref="#sensor">Sensor::calculateReading</a>
+	<li><a href="#graphic">graphicsArenaViewer::DrawRobot</a>
+    <li><a href="#motion">MotionHandlerRobot::UpdateVelocitybySensor</a>
+    <li><a href="#sensor">Sensor::calculateReading</a>
 </ul>
 
 
