@@ -216,6 +216,14 @@ class GraphicsArenaViewer : public GraphicsApp {
   bool get_no_food() { return no_food_; }
 
  private:
+   /**
+    * @brief Draw the arena using `nanogui`.
+    *
+    * This function requires an active `nanovg` drawing context (`ctx`), so it
+    * should probably only be called from with DrawUsingNanoVG.
+    *
+    * @param[in] ctx The `nanovg` context.
+    */
   void DrawArena(NVGcontext *ctx);
   /**
    * @brief Draw a Robot using `nanogui`.

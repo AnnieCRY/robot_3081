@@ -43,44 +43,38 @@ void Sensor::update(Pose p) {
 }
 
 // The stimuli calls this function to push notifications to its sensors
-void Sensor::calculateReading(Pose p, double stimuliraius) {
+void Sensor::calculateReading(Pose p, double stimuliradius) {
   if (stimuli_type_ == kFood) {
-    double dis = sqrt((p.x - robot_pose_.x) * (p.x - robot_pose_.x) +
-     (p.y - robot_pose_.y)*(p.y - robot_pose_.y)) - stimuliraius;
-    bool food_consumption_temp = false;
-    if (dis <= 5)
-      food_consumption_temp = true;
-    food_consumption_ = food_consumption_ || food_consumption_temp;
+    // bool food_consumption_temp = false;
+    if (distance(p, robot_pose_, stimuliradius) <= 5)
+      food_consumption_ = true;
+    //food_consumption_ = food_consumption_ || food_consumption_temp;
   }
-  double reading_temp_l;
-  double delta_x_l = p.x - position_left_.x;
-  double delta_y_l = p.y - position_left_.y;
-  double dis_l = sqrt(delta_x_l * delta_x_l + delta_y_l*delta_y_l)
-  - stimuliraius;
+  /*double reading_temp_l;
 
-  if (dis_l <= 0) {
+  if (distance(p, position_left_, stimuliradius) <= 0) {
     reading_temp_l = MAX_READING_FOR_ONE;
   } else {
-    reading_temp_l = coefficient_*1200 / dis_l;
+    reading_temp_l =
+    coefficient_*1200 / distance(p, position_left_, stimuliradius);
     if (reading_temp_l> MAX_READING_FOR_ONE)
       reading_temp_l = MAX_READING_FOR_ONE;
   }
 
   double reading_temp_r;
-  double delta_x_r = p.x - position_right_.x;
-  double delta_y_r = p.y - position_right_.y;
-  double dis_r = sqrt(delta_x_r * delta_x_r + delta_y_r*delta_y_r)
-  - stimuliraius;
 
-  if (dis_r <= 0) {
+  if (distance(p, position_right_, stimuliradius) <= 0) {
     reading_temp_r = MAX_READING_FOR_ONE;
   } else {
-    reading_temp_r = coefficient_*1200 / dis_r;
+    reading_temp_r =
+    coefficient_*1200 / distance(p, position_right_, stimuliradius);
     if (reading_temp_r> MAX_READING_FOR_ONE)
       reading_temp_r = MAX_READING_FOR_ONE;
-  }
-  left_reading_ += reading_temp_l;
-  right_reading_ += reading_temp_r;
+  }*/
+  left_reading_ += calculateReadingbyDistance(
+    distance(p, position_left_, stimuliradius));
+  right_reading_ += calculateReadingbyDistance(
+    distance(p, position_right_, stimuliradius));
 
   if (left_reading_ > MAX_READING)
     left_reading_ = MAX_READING;
@@ -88,4 +82,13 @@ void Sensor::calculateReading(Pose p, double stimuliraius) {
     right_reading_ = MAX_READING;
 }
 
+double  Sensor::calculateReadingbyDistance(double dis) {
+  if (dis <= 0) {
+    return MAX_READING_FOR_ONE;
+  } else {
+    return  coefficient_*1200 / dis < MAX_READING_FOR_ONE?
+    coefficient_*1200 / dis: MAX_READING_FOR_ONE;
+  }
+
+}
 NAMESPACE_END(csci3081);
