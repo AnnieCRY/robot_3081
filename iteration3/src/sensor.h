@@ -54,6 +54,7 @@ class Sensor {
   Pattern get_pattern() { return pattern_;}
 
   void set_sensitivity(float c) {coefficient_ = c;}
+  float get_sensitivity() { return coefficient_;}
 
   void set_robot_radius(double r) {robot_radius_ = r;}
   double get_robot_radius() { return robot_radius_;}
