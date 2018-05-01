@@ -18,7 +18,6 @@
 #include "src/food.h"
 #include "src/entity_factory.h"
 #include "src/robot.h"
-//#include "src/communication.h"
 
 /*******************************************************************************
  * Namespaces
@@ -207,7 +206,7 @@ class Arena {
   // A subset of the entities -- only those that can move (only Robot for now).
   std::vector<class ArenaMobileEntity *> mobile_entities_;
 
-  // win/lose/playing state
+  // playing state
   int game_status_;
 };
 

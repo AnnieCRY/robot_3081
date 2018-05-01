@@ -60,7 +60,7 @@ class Food : public ArenaImmobileEntity {
   /**
    * @brief remove all the registered sensors.
    */
-  void RemoveSensors() { sensors_.clear(); } 
+  void RemoveSensors() { sensors_.clear(); }
   /**
   * @brief Register every sensor of the robots.
   */
@@ -87,7 +87,7 @@ class Food : public ArenaImmobileEntity {
 
  private:
   bool captured_;
-    std::vector <class Sensor*> sensors_;
+  std::vector <class Sensor*> sensors_;
 };
 
 NAMESPACE_END(csci3081);

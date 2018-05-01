@@ -86,8 +86,8 @@
 #define MAX_READING_FOR_ONE 250
 #define MAX_READING 1000
 
-#define COWARD { true, false}
-#define AGGRESSIVE { true, true}
+#define COWARD { true, true}
+#define AGGRESSIVE { true, false}
 #define LOVE { false, true}
 #define EXPLORE { false, false}
 

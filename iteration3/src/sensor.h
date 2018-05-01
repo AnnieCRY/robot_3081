@@ -18,7 +18,6 @@
 #include "src/pose.h"
 #include "src/vehicle_pattern.h"
 #include "src/entity_type.h"
-#include "src/arena_entity.h"
 #include "src/params.h"
 
 /*******************************************************************************
@@ -99,10 +98,10 @@ class Sensor {
    * between the center of two object minus the radius of stimuli.
    *
    */
-   double distance(Pose p1, Pose p2, double r) {
+  double distance(Pose p1, Pose p2, double r) {
      return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y))
      - r;
-   }
+  }
    /**
     * @brief calculate the reading according to the distance
     * between the sensor and one stimuli
@@ -112,7 +111,7 @@ class Sensor {
     * calulateReading()
     *
     */
-   double calculateReadingbyDistance(double dis);
+  double calculateReadingbyDistance(double dis);
 
 
  private:

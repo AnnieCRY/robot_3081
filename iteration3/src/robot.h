@@ -77,30 +77,6 @@ class Robot : public ArenaMobileEntity {
    */
   std::string get_name() const override { return "Robot"; }
 
-  /**
-   * @brief Command that comes from the controller, then is passed to handler.
-   */
-  void IncreaseSpeed();
-
-  /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void DecreaseSpeed();
-
-  /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void TurnRight();
-
-  /**
-  * @brief Command that comes from the controller, then is passed to handler.
-  */
-  void TurnLeft();
-
-  int get_lives()const { return lives_; }
-
-  void set_lives(int l) { lives_ = l; }
-
   bool get_starve()const {return starve_; }
 
   Sensor* get_light_sensor() { return light_sensor_; }
@@ -132,17 +108,18 @@ class Robot : public ArenaMobileEntity {
   MotionHandlerRobot motion_handler_;
   // Calculates changes in pose foodd on elapsed time and wheel velocities.
   MotionBehaviorDifferential motion_behavior_;
-  // Lives are decremented when the robot collides with anything.
-  // When all the lives are gone, the game is lost.
-  int lives_;
 
   Sensor* light_sensor_;
   Sensor* food_sensor_;
 
+  // robot has three states: hungry, really hungry, and starve
   bool hungry_;
   bool really_hungry_;
   bool starve_;
+  // time_count_ is used to count the time
   int time_count_;
+  // no_food_ is true if the user choose
+  // no food or food num is zero in Configuration
   bool no_food_ = false;
 };
 

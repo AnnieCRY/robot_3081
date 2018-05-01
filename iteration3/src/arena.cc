@@ -29,9 +29,9 @@ Arena::Arena(const struct arena_params *const params)
       entities_(),
       mobile_entities_(),
       game_status_(PLAYING) {
-  AddRobot(5, COWARD,1.08,false);
-  AddRobot(5, EXPLORE,1.08,false);
-  AddEntity(kFood,5);
+  AddRobot(5, COWARD, 1.08, false);
+  AddRobot(5, EXPLORE, 1.08, false);
+  AddEntity(kFood, 5);
   AddEntity(kLight, 4);
 
   // register sensor
@@ -228,9 +228,6 @@ void Arena::AcceptCommand(Communication com) {
     case(kReset):
     Reset();
     break;
-    case(kPlay):
-    case(kPause):
-    case(kNone):
     default: break;
   }
 }
