@@ -35,11 +35,11 @@ Sensor::Sensor(EntityType type, double r) :
 
 void Sensor::update(Pose p) {
   robot_pose_ = p;
-  position_left_.x = p.x + robot_radius_ * std::cos(deg2rad(p.theta + 40));
-  position_left_.y = p.y + robot_radius_ * std::sin(deg2rad(p.theta + 40));
+  position_left_.x = p.x + robot_radius_ * std::cos(deg2rad(p.theta - 40));
+  position_left_.y = p.y + robot_radius_ * std::sin(deg2rad(p.theta - 40));
 
-  position_right_.x = p.x + robot_radius_ * std::cos(deg2rad(p.theta - 40));
-  position_right_.y = p.y + robot_radius_ * std::sin(deg2rad(p.theta - 40));
+  position_right_.x = p.x + robot_radius_ * std::cos(deg2rad(p.theta + 40));
+  position_right_.y = p.y + robot_radius_ * std::sin(deg2rad(p.theta + 40));
 }
 
 // The stimuli calls this function to push notifications to its sensors
@@ -48,7 +48,7 @@ void Sensor::calculateReading(Pose p, double stimuliradius) {
     // bool food_consumption_temp = false;
     if (distance(p, robot_pose_, stimuliradius) <= 5)
       food_consumption_ = true;
-    //food_consumption_ = food_consumption_ || food_consumption_temp;
+    // food_consumption_ = food_consumption_ || food_consumption_temp;
   }
 
   left_reading_ += calculateReadingbyDistance(
@@ -69,6 +69,5 @@ double  Sensor::calculateReadingbyDistance(double dis) {
     return  coefficient_*1200 / dis < MAX_READING_FOR_ONE?
     coefficient_*1200 / dis: MAX_READING_FOR_ONE;
   }
-
 }
 NAMESPACE_END(csci3081);

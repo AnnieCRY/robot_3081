@@ -100,89 +100,6 @@ class GraphicsArenaViewer : public GraphicsApp {
    * This will let robot not sense food.
    */
   void OnNoFoodBtnPressed();
-  /**
-   * @brief Called each time the mouse moves on the screen within the GUI
-   * window.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   * @param[in] delta How far the mouse has moved.
-   */
-  void OnMouseMove(__unused const Point2& pos,
-                   __unused const Vector2& delta) override {};
-
-  /**
-   * @brief Called each time the left mouse button is clicked.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnLeftMouseDown(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the left mouse button is released.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnLeftMouseUp(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the right mouse button is clicked.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnRightMouseDown(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the right mouse button is released.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnRightMouseUp(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time a character key is pressed.
-   *
-   * @param[in] c Character representing a key that was pressed.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnKeyDown(__unused const char *c, __unused int modifiers) override {};
-
-  /**
-   * @brief Called each time a character key is released.
-   *
-   * @param[in] c Character representing a key that was released.
-   * @param[in] modifiers Any modifier keys that were held with the key.
-   */
-  void OnKeyUp(__unused const char *c, __unused int modifiers) override {};
-
-  /**
-   * @brief Called each time a special (non-alphabetic) key is pressed.
-   *
-   * @param[in] key The key that was pressed.
-   * @param[in] scancode The scancode corresponding to the key.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnSpecialKeyDown(int key, __unused int scancode,
-                        __unused int modifiers) override;
-
-  /**
-   * @brief Called each time a special (non-alphabetic) key is released.
-   *
-   * @param[in] key The key that was released.
-   * @param[in] scancode The scancode corresponding to the key.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnSpecialKeyUp(__unused int key, __unused int scancode,
-                      __unused int modifiers) override {};
 
   /**
    * @brief Draw the Arena with all of its entities using `nanogui`.
@@ -193,12 +110,6 @@ class GraphicsArenaViewer : public GraphicsApp {
    * @param[in] ctx Context for nanogui.
    */
   void DrawUsingNanoVG(NVGcontext *ctx) override;
-
-  /**
-   * @brief Draw using `OpenGL`. This method is unimplemented, as currently
-   * we are doing all drawing with `nanovg` in this application, so it is empty.
-   */
-  void DrawUsingOpenGL() override {}
 
   /**
    * @brief Under certain circumstance, the compiler requires that the
@@ -255,8 +166,6 @@ class GraphicsArenaViewer : public GraphicsApp {
   nanogui::Button *playing_button_{nullptr};
   nanogui::Button *food_button_{nullptr};
   nanogui::Button *reset_button_{nullptr};
-  // panel
-  //nanogui::
   nanogui::Widget *panel{nullptr};
 
   int robot_count_;

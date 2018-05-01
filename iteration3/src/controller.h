@@ -78,6 +78,7 @@ class Controller {
   Communication ConvertComm(Communication com);
   void Configuration(int robot_count_, int light_count_, float radio_,
      float coefficient_, int food_count_);
+
  private:
   double last_dt{0};
   Arena* arena_{nullptr};

@@ -18,32 +18,6 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-// @TODO add clamped
-
-void MotionHandlerRobot::TurnLeft() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_angle_delta()),
-    clamp_vel(get_velocity().right + get_angle_delta()));
-}
-
-void MotionHandlerRobot::TurnRight() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_angle_delta()),
-    clamp_vel(get_velocity().right - get_angle_delta()));
-}
-
-void MotionHandlerRobot::IncreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_speed_delta()),
-    clamp_vel(get_velocity().right + get_speed_delta()));
-}
-
-void MotionHandlerRobot::DecreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_speed_delta()),
-    clamp_vel(get_velocity().right - get_speed_delta()));
-}
-
 void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;
@@ -64,15 +38,20 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   // double v_right = sensor->get_right_reading()/10.0;
 
   if (!sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    // Love
     set_velocity(clamp_vel(get_max_speed() - left_reading(sensor)),
     clamp_vel(get_max_speed() - right_reading(sensor)));
   } else if (sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    // Coward
+    //std::cout << "coward";
     set_velocity(clamp_vel(left_reading(sensor)),
     clamp_vel(right_reading(sensor)));
-  } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct){
+  } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct) {
+    // Aggressive
     set_velocity(clamp_vel(right_reading(sensor)),
     clamp_vel(left_reading(sensor)));
   } else {
+    // Explore
     set_velocity(clamp_vel(get_max_speed() - right_reading(sensor)),
     clamp_vel(get_max_speed() - left_reading(sensor)));
   }

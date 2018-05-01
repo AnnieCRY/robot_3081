@@ -21,7 +21,6 @@ NAMESPACE_BEGIN(csci3081);
 Robot::Robot() :
     motion_handler_(this),
     motion_behavior_(this),
-    lives_(9),
     light_sensor_(new Sensor(kLight, ROBOT_RADIUS )),
     food_sensor_(new Sensor(kFood, ROBOT_RADIUS )),
     hungry_(false),
@@ -50,7 +49,7 @@ void Robot::TimestepUpdate(unsigned int dt) {
     really_hungry_ = true;
   if ( !no_food_ && time_count_ > 1500 )
     starve_ = true;
-  if ( !no_food_ && food_sensor_->get_food_consumption()) {
+  if ( !no_food_ && food_sensor_->get_food_consumption() ) {
     hungry_ = false;
     really_hungry_ = false;
     starve_ = false;
@@ -97,26 +96,12 @@ void Robot::Reset() {
         static_cast<double>((30 + (random() % 14) * 50))});
   motion_handler_.set_max_speed(ROBOT_MAX_SPEED);
   motion_handler_.set_max_angle(ROBOT_MAX_ANGLE);
-  //lives_ = 9;
   motion_handler_.set_velocity(0, 0);
   sensor_touch_->Reset();
 } /* Reset() */
 
 void Robot::HandleCollision(EntityType object_type, ArenaEntity * object) {
   sensor_touch_->HandleCollision(object_type, object);
-}
-
-void Robot::IncreaseSpeed() {
-  motion_handler_.IncreaseSpeed();
-}
-void Robot::DecreaseSpeed() {
-  motion_handler_.DecreaseSpeed();
-}
-void Robot::TurnRight() {
-  motion_handler_.TurnRight();
-}
-void Robot::TurnLeft() {
-  motion_handler_.TurnLeft();
 }
 
 NAMESPACE_END(csci3081);
