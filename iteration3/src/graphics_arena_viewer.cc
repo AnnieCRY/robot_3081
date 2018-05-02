@@ -345,6 +345,7 @@ void GraphicsArenaViewer::DrawUsingNanoVG(NVGcontext *ctx) {
     nvgText(ctx, 350.0, 150.0, lost_message_.c_str(), nullptr);
     nvgRestore(ctx);
     paused_ = true;
+    reset_button_->setEnabled(true);
   }
 }
 
