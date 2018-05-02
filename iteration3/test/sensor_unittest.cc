@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include "src/sensor.h"
 #include "src/entity_type.h"
+#include "src/vehicle_pattern.h"
+#include "src/pose.h"
 
 #ifdef SENSOR_TESTS
 
@@ -21,28 +23,59 @@ class SensorTest : public ::testing::Test {
  ******************************************************************************/
 
  TEST_F(SensorTest, Constructor) {
+   csci3081::Pose l_pos = lightsensor->get_left_position();
+   EXPECT_EQ(std::make_tuple(l_pos.x, l_pos.y), std::make_tuple(0, 0))
+   << "\nFAIL initial left position";
+   csci3081::Pose r_pos = lightsensor->get_right_position();
+   EXPECT_EQ(std::make_tuple(r_pos.x, r_pos.y), std::make_tuple(0, 0))
+   << "\nFAIL initial right position";
    EXPECT_EQ(lightsensor->get_left_reading(), 0)
    << "\nFAIL initial left reading";
    EXPECT_EQ(lightsensor->get_right_reading(), 0)
    << "\nFAIL initial right reading";
+   EXPECT_EQ(lightsensor->get_stimuli_type(),csci3081::EntityType::kLight)
+   << "\nFAIL initial stimuli type";
+   csci3081::Pattern p = lightsensor->get_pattern();
+   EXPECT_EQ(std::make_tuple(p.positive, p.direct),
+   std::make_tuple(true, false))<< "\nFAIL initial vehicle pattern";
    EXPECT_EQ(lightsensor->get_robot_radius(), 10)
    << "\nFAIL initial robot radius";
+   EXPECT_FALSE(lightsensor->get_food_consumption())
+   << "\nFAIL initial ood consumption";
    EXPECT_EQ(lightsensor->get_sensitivity(), float(1.08))
    << "\nFAIL initial sensitivity";
 
-   // test getters
+   // test setters getters
+   lightsensor->set_left_position({50,70});
+   l_pos = lightsensor->get_left_position();
+   EXPECT_EQ(std::make_tuple(l_pos.x, l_pos.y), std::make_tuple(50, 70))
+   << "\nFAIL set left position";
+   lightsensor->set_right_position({90,70});
+   r_pos = lightsensor->get_right_position();
+   EXPECT_EQ(std::make_tuple(r_pos.x, r_pos.y), std::make_tuple(90, 70))
+   << "\nFAIL set right position";
    lightsensor->set_left_reading(300);
    EXPECT_EQ(lightsensor->get_left_reading(), 300)
    << "\nFAIL set left reading";
    lightsensor->set_right_reading(300);
    EXPECT_EQ(lightsensor->get_right_reading(), 300)
    << "\nFAIL set right reading";
+   lightsensor->set_stimuli_type(csci3081::EntityType::kFood);
+   EXPECT_EQ(lightsensor->get_stimuli_type(), csci3081::EntityType::kFood)
+   << "\nFAIL set stimuli type";
+   lightsensor->set_pattern(COWARD);
+   p = lightsensor->get_pattern();
+   EXPECT_EQ(std::make_tuple(p.positive, p.direct),
+   std::make_tuple(true, true)) << "\nFAIL set vehicle connection pattern";
    lightsensor->set_sensitivity(1.5);
    EXPECT_EQ(lightsensor->get_sensitivity(), 1.5)
    << "\nFAIL set sensitivity (coefficient)";
    lightsensor->set_robot_radius(7);
    EXPECT_EQ(lightsensor->get_robot_radius(), 7)
    << "\nFAIL set robot radius";
+   lightsensor->set_food_consumption(true);
+   EXPECT_TRUE(lightsensor->get_food_consumption())
+   << "\nFAIL set food consumption";
  };
 /*******************************************************************************
  * Test Cases: update

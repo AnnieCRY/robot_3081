@@ -50,6 +50,9 @@ class Sensor {
   void set_right_reading(double dis) { right_reading_ = dis; }
   double get_right_reading() { return right_reading_; }
 
+  void set_stimuli_type(EntityType t) {stimuli_type_ = t;}
+  EntityType get_stimuli_type() { return stimuli_type_;}
+
   void set_pattern(Pattern p) {pattern_ = p;}
   Pattern get_pattern() { return pattern_;}
 
