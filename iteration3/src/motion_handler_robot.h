@@ -17,7 +17,6 @@
 #include "src/motion_handler.h"
 #include "src/sensor_touch.h"
 #include "src/communication.h"
-#include "src/sensor.h"
 
 /*******************************************************************************
  * Namespaces
@@ -30,7 +29,7 @@ class Robot;
  ******************************************************************************/
 
 /**
- * @brief Class managing a Robot's speed and heading angle foodd
+ * @brief Class managing a Robot's speed and heading angle based
  * on collisions and user inputs.
  *
  * Currently, both wheels are always going at maximum speed, and
@@ -52,35 +51,33 @@ class MotionHandlerRobot : public MotionHandler {
   * If the connection is positive, the max reading causes max velocity.
   * Otherwise,  the max reading causes min velocity.
   *
-  * @param[in] pose The current pose.
-  * @param[in] st A SensorTouch to be read.
+  * @param[in] The sensor which decide the motion of the robot.
   */
   void UpdateVelocitybySensor(Sensor* sensor) override;
 
   /**
-   * @brief Increase the overall speed of the entity by speed_delta.
-   */
-  void IncreaseSpeed() override;
-
+  * @brief get the motified left reading of the sensor
+  *
+  * @param[in] the sensor
+  * @param[out] the motified left reading of the sensor
+  */
+  double left_reading(Sensor* sensor) {return sensor->get_left_reading()/10.0;}
   /**
-   * @brief Decrease the overall speed of the entity by speed_delta.
-   */
-  void DecreaseSpeed() override;
-
-  /**
-   * @brief Turn the entity to the right by angle_delta (in degrees?)
-   */
-  void TurnRight() override;
-
-  /**
-   * @brief Turn the entity to the left by angle_delta (in degrees?)
-   */
-  void TurnLeft() override;
+  * @brief get the  motified right reading of the sensor
+  *
+  * @param[in] the sensor
+  * @param[out] the motified right reading of the sensor
+  */
+  double right_reading(Sensor* sensor) {
+    return sensor->get_right_reading()/10.0;}
 
  private:
   double clamp_vel(double vel);
 
+  // when collides, robot turns in an arc
   bool turn_flag_ = false;
+  // count turn steps, when turn steps equals 50,
+  // set turn_flag_ false, and robot goes straight
   int turn_step_ = 0;
 };
 

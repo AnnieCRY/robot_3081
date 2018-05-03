@@ -53,27 +53,7 @@ class MotionHandlerLight : public MotionHandler {
   */
   void UpdateVelocity() override;
 
-  /**
-   * @brief Increase the overall speed of the entity by speed_delta.
-   */
-  void IncreaseSpeed() override;
-
-  /**
-   * @brief Decrease the overall speed of the entity by speed_delta.
-   */
-  void DecreaseSpeed() override;
-
-  /**
-   * @brief Turn the entity to the left by angle_delta (in degrees?)
-   */
-  void TurnLeft() override;
-  /**
-  * @bref Turn the entity to the right by angle_delta
-  */
-  void TurnRight() override;
-
  private:
-  double clamp_vel(double vel);
   bool turn_flag_ = false;
   int turn_step_ = 0;
 };

@@ -94,90 +94,12 @@ class GraphicsArenaViewer : public GraphicsApp {
    * This will restart the game
    */
   void OnRestartBtnPressed();
-
   /**
-   * @brief Called each time the mouse moves on the screen within the GUI
-   * window.
+   * @brief Handle the user pressing the No food button on the GUI.
    *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   * @param[in] delta How far the mouse has moved.
+   * This will let robot not sense food.
    */
-  void OnMouseMove(__unused const Point2& pos,
-                   __unused const Vector2& delta) override {};
-
-  /**
-   * @brief Called each time the left mouse button is clicked.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnLeftMouseDown(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the left mouse button is released.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnLeftMouseUp(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the right mouse button is clicked.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnRightMouseDown(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time the right mouse button is released.
-   *
-   * Origin is at the lower left of the window. This function is a stub.
-   *
-   * @param[in] pos The position of the release.
-   */
-  void OnRightMouseUp(__unused const Point2& pos) override {};
-
-  /**
-   * @brief Called each time a character key is pressed.
-   *
-   * @param[in] c Character representing a key that was pressed.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnKeyDown(__unused const char *c, __unused int modifiers) override {};
-
-  /**
-   * @brief Called each time a character key is released.
-   *
-   * @param[in] c Character representing a key that was released.
-   * @param[in] modifiers Any modifier keys that were held with the key.
-   */
-  void OnKeyUp(__unused const char *c, __unused int modifiers) override {};
-
-  /**
-   * @brief Called each time a special (non-alphabetic) key is pressed.
-   *
-   * @param[in] key The key that was pressed.
-   * @param[in] scancode The scancode corresponding to the key.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnSpecialKeyDown(int key, __unused int scancode,
-                        __unused int modifiers) override;
-
-  /**
-   * @brief Called each time a special (non-alphabetic) key is released.
-   *
-   * @param[in] key The key that was released.
-   * @param[in] scancode The scancode corresponding to the key.
-   * @param[in] modifiers Any modifier keys that were also pressed.
-   */
-  void OnSpecialKeyUp(__unused int key, __unused int scancode,
-                      __unused int modifiers) override {};
+  void OnNoFoodBtnPressed();
 
   /**
    * @brief Draw the Arena with all of its entities using `nanogui`.
@@ -188,12 +110,6 @@ class GraphicsArenaViewer : public GraphicsApp {
    * @param[in] ctx Context for nanogui.
    */
   void DrawUsingNanoVG(NVGcontext *ctx) override;
-
-  /**
-   * @brief Draw using `OpenGL`. This method is unimplemented, as currently
-   * we are doing all drawing with `nanovg` in this application, so it is empty.
-   */
-  void DrawUsingOpenGL() override {}
 
   /**
    * @brief Under certain circumstance, the compiler requires that the
@@ -208,7 +124,17 @@ class GraphicsArenaViewer : public GraphicsApp {
    */
   GraphicsArenaViewer(const GraphicsArenaViewer &other) = delete;
 
+  bool get_no_food() { return no_food_; }
+
  private:
+   /**
+    * @brief Draw the arena using `nanogui`.
+    *
+    * This function requires an active `nanovg` drawing context (`ctx`), so it
+    * should probably only be called from with DrawUsingNanoVG.
+    *
+    * @param[in] ctx The `nanovg` context.
+    */
   void DrawArena(NVGcontext *ctx);
   /**
    * @brief Draw a Robot using `nanogui`.
@@ -238,6 +164,16 @@ class GraphicsArenaViewer : public GraphicsApp {
 
   // buttons
   nanogui::Button *playing_button_{nullptr};
+  nanogui::Button *food_button_{nullptr};
+  nanogui::Button *reset_button_{nullptr};
+  nanogui::Widget *panel{nullptr};
+
+  int robot_count_;
+  int light_count_;
+  float radio_;
+  float coefficient_;
+  int food_count_;
+  bool no_food_ = false;
 };
 
 NAMESPACE_END(csci3081);

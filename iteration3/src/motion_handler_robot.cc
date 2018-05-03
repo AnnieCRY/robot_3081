@@ -18,32 +18,6 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-// @TODO add clamped
-
-void MotionHandlerRobot::TurnLeft() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_angle_delta()),
-    clamp_vel(get_velocity().right + get_angle_delta()));
-}
-
-void MotionHandlerRobot::TurnRight() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_angle_delta()),
-    clamp_vel(get_velocity().right - get_angle_delta()));
-}
-
-void MotionHandlerRobot::IncreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_speed_delta()),
-    clamp_vel(get_velocity().right + get_speed_delta()));
-}
-
-void MotionHandlerRobot::DecreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_speed_delta()),
-    clamp_vel(get_velocity().right - get_speed_delta()));
-}
-
 void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;
@@ -59,18 +33,27 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
     turn_step_ = 0;
   }
 
-  Pattern robotic_controls = sensor->get_pattern();
-  double v_left = sensor->get_left_reading()/10.0;
-  double v_right = sensor->get_right_reading()/10.0;
+  // Pattern robotic_controls = sensor->get_pattern();
+  // double v_left = sensor->get_left_reading()/10.0;
+  // double v_right = sensor->get_right_reading()/10.0;
 
-  if (!robotic_controls.positive) {
-    v_left = get_max_speed() - v_left;
-    v_right = get_max_speed() - v_right;
-  }
-  if (robotic_controls.direct) {
-    set_velocity(clamp_vel(v_left), clamp_vel(v_right));
+  if (!sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    // Love
+    set_velocity(clamp_vel(get_max_speed() - left_reading(sensor)),
+    clamp_vel(get_max_speed() - right_reading(sensor)));
+  } else if (sensor->get_pattern().positive && sensor->get_pattern().direct) {
+    // Coward
+    //std::cout << "coward";
+    set_velocity(clamp_vel(left_reading(sensor)),
+    clamp_vel(right_reading(sensor)));
+  } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct) {
+    // Aggressive
+    set_velocity(clamp_vel(right_reading(sensor)),
+    clamp_vel(left_reading(sensor)));
   } else {
-    set_velocity(clamp_vel(v_right), clamp_vel(v_left));
+    // Explore
+    set_velocity(clamp_vel(get_max_speed() - right_reading(sensor)),
+    clamp_vel(get_max_speed() - left_reading(sensor)));
   }
 }
 

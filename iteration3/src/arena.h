@@ -18,7 +18,6 @@
 #include "src/food.h"
 #include "src/entity_factory.h"
 #include "src/robot.h"
-#include "src/communication.h"
 
 /*******************************************************************************
  * Namespaces
@@ -79,7 +78,7 @@ class Arena {
    * Specify the number and vehicle pattern of the robots
    * and add them into arena
    */
-  void AddRobot(int quantity, Pattern p);
+  void AddRobot(int quantity, Pattern p, float c, bool n);
   /**
    * @brief Add entity in arena.
    *
@@ -176,12 +175,19 @@ class Arena {
   void UpdateEntitiesTimestep();
 
   std::vector<class ArenaEntity *> get_entities() const { return entities_; }
+  std::vector<class Robot *> get_robot() const { return robot_; }
+
+  void ResetConfig() {
+    robot_.clear();
+    entities_.clear();
+  }
 
   double get_x_dim() { return x_dim_; }
   double get_y_dim() { return y_dim_; }
 
   int get_game_status() const { return game_status_; }
   void set_game_status(int status) { game_status_ = status; }
+
 
  private:
   // Dimensions of graphics window inside which entities must operate
@@ -200,7 +206,7 @@ class Arena {
   // A subset of the entities -- only those that can move (only Robot for now).
   std::vector<class ArenaMobileEntity *> mobile_entities_;
 
-  // win/lose/playing state
+  // playing state
   int game_status_;
 };
 

@@ -18,7 +18,6 @@
 #include "src/pose.h"
 #include "src/vehicle_pattern.h"
 #include "src/entity_type.h"
-#include "src/arena_entity.h"
 #include "src/params.h"
 
 /*******************************************************************************
@@ -51,8 +50,14 @@ class Sensor {
   void set_right_reading(double dis) { right_reading_ = dis; }
   double get_right_reading() { return right_reading_; }
 
+  void set_stimuli_type(EntityType t) {stimuli_type_ = t;}
+  EntityType get_stimuli_type() { return stimuli_type_;}
+
   void set_pattern(Pattern p) {pattern_ = p;}
   Pattern get_pattern() { return pattern_;}
+
+  void set_sensitivity(float c) {coefficient_ = c;}
+  float get_sensitivity() { return coefficient_;}
 
   void set_robot_radius(double r) {robot_radius_ = r;}
   double get_robot_radius() { return robot_radius_;}
@@ -85,6 +90,32 @@ class Sensor {
   bool get_food_consumption() { return food_consumption_;}
   void set_food_consumption(bool b) { food_consumption_ = b;}
 
+  /**
+   * @brief calculate the distance between two position
+   *
+   * @param p1 the first position
+   * @param p2 the second position
+   * @param r the radius of stimuli
+   *
+   * calculate the distance between the sensor and the stimuli
+   * or the robot and stimuli. The distance return is the distance
+   * between the center of two object minus the radius of stimuli.
+   *
+   */
+  double distance(Pose p1, Pose p2, double r) {
+     return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y))
+     - r;
+  }
+   /**
+    * @brief calculate the reading according to the distance
+    * between the sensor and one stimuli
+    *
+    * @param dis The the distance between the sensor and one stimuli
+    * return a temporary reading of one stimuli that would be used later in
+    * calulateReading()
+    *
+    */
+  double calculateReadingbyDistance(double dis);
 
 
  private:
@@ -97,6 +128,7 @@ class Sensor {
   Pattern pattern_;
   double robot_radius_;
   bool food_consumption_;
+  float coefficient_;
 };
 
 NAMESPACE_END(csci3081);

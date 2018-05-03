@@ -47,7 +47,7 @@ class Light : public ArenaMobileEntity {
    * aid in debugging.
    */
   std::string get_name() const override {
-    return "Light" + std::to_string(get_id());
+    return "Light";
   }
   /**
    * @brief Update the obstacle's position and velocity after the specified
@@ -76,6 +76,10 @@ class Light : public ArenaMobileEntity {
    */
   void RegisterSensor(Sensor *sensor);
 
+  /**
+   * @brief remove all the registered sensors.
+   */
+  void RemoveSensors() { sensors_.clear(); }
   MotionHandlerLight get_motion_handler() { return motion_handler_;}
 
   MotionBehaviorDifferential get_motion_behavior() { return motion_behavior_;}

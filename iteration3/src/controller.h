@@ -37,8 +37,8 @@ class GraphicsArenaViewer;
  * viewer sends a message to the controller to update its time.
  *
  * Other types of communication between Arena and Viewer include:
- * - keypresses intercepted by the Viewer.
- * - Play/Pause/New Game user input via the Viewer.
+ * - k
+ * - Play/Pause/New Game/Slider user input via the Viewer.
  * - Game status from arena to the viewer.
  **/
 class Controller {
@@ -76,6 +76,19 @@ class Controller {
   * correctly received, interpreted, and relayed.
   */
   Communication ConvertComm(Communication com);
+  /**
+  * @brief configure the simulation by the user input
+  *
+  * @param[in] robot_count_ The number of the robot
+  * @param[in] light_count_ The number of the light
+  * @param[in] radio_ The radio of fear to explore
+  * @param[in] coefficient_ the sensitivity of sensors
+  * @param[in] food_count_ The number of the food
+  *
+  * reset the config, add entities into arena and register the sensors
+  */
+  void Configuration(int robot_count_, int light_count_, float radio_,
+     float coefficient_, int food_count_);
 
  private:
   double last_dt{0};

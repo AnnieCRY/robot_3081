@@ -18,45 +18,6 @@ NAMESPACE_BEGIN(csci3081);
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void MotionHandlerLight::IncreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_speed_delta()),
-    clamp_vel(get_velocity().right + get_speed_delta()));
-}
-
-void MotionHandlerLight::DecreaseSpeed() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_speed_delta()),
-    clamp_vel(get_velocity().right - get_speed_delta()));
-}
-
-
-void MotionHandlerLight::TurnLeft() {
-  set_velocity(
-    clamp_vel(get_velocity().left  - get_angle_delta()),
-    clamp_vel(get_velocity().right + get_angle_delta()));
-}
-
-void MotionHandlerLight::TurnRight() {
-  set_velocity(
-    clamp_vel(get_velocity().left  + get_angle_delta()),
-    clamp_vel(get_velocity().right - get_angle_delta()));
-}
-
-double MotionHandlerLight::clamp_vel(double vel) {
-  double clamped = 0.0;
-  if (vel > 0) {
-    clamped = (vel > get_max_speed()) ?
-              get_max_speed():
-              vel;
-  } else {
-    clamped = (vel < 0) ?
-              0:
-              vel;
-  }
-  return clamped;
-} /* clamp_vel() */
-
 void MotionHandlerLight::UpdateVelocity() {
   if (entity_->get_touch_sensor()->get_output()) {
     turn_flag_ = true;

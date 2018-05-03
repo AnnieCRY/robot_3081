@@ -26,7 +26,7 @@ NAMESPACE_BEGIN(csci3081);
  * Classes
  ******************************************************************************/
 /**
- * @brief Food class for managing the pose and wheel velocity of the entity.
+ * @brief Base class for managing the pose and wheel velocity of the entity.
  *
  * The pose.heading will change when the entity collides.
  * The pose position will change at each timestep, which is determined by the
@@ -54,49 +54,7 @@ class MotionHandler {
   * @brief Update the heading angle according to the ligth and food sensor reading.
   */
   virtual void UpdateVelocitybySensor(__unused Sensor* sensor) {}
-  /**
-   * @brief Getter for speed delta used when user requests speed increase.
-   */
-  double get_speed_delta() const { return speed_delta_; }
 
-  /**
-   * @brief Setter method for the speed delta. Set at initialization only.
-   */
-  void set_speed_delta(double sd) { speed_delta_ = sd; }
-
-  /**
-   * @brief Getter for angle delta used when user requests turning.
-   */
-  double get_angle_delta() const { return angle_delta_; }
-
-  /**
-   * @brief Setter method for the angle delta. Set at initialization only.
-   */
-  void set_angle_delta(double ad) { angle_delta_ = ad; }
-
-  /**
-   * @brief Increase the overall speed of the entity by speed_delta.
-   */
-  virtual void IncreaseSpeed() {}
-
-  /**
-   * @brief Decrease the overall speed of the entity by speed_delta.
-   */
-  virtual void DecreaseSpeed() {}
-
-  /**
-   * @brief Turn the entity to the right by angle_delta (in degrees?)
-   */
-  virtual void TurnRight() {}
-
-  /**
-   * @brief Turn the entity to the left by angle_delta (in degrees?)
-   */
-  virtual void TurnLeft() {}
-
-  /**
-   * @brief Getter method for the maximum speed of entity.
-   */
   double get_max_speed() const { return max_speed_; }
 
   /**
@@ -138,8 +96,6 @@ class MotionHandler {
  private:
   double max_speed_{10};
   double max_angle_{360};
-  double speed_delta_{1};
-  double angle_delta_{1};
   WheelVelocity velocity_;
 
  protected:
