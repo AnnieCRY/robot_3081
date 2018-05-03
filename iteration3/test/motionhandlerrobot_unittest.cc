@@ -43,7 +43,7 @@ class MotionHandlerRobotTest : public ::testing::Test {
  /* test for UpdateVelocitybySensor(sensor) in motion hander robot.
   * It updates the left and right velocity of robot according to the
   * pattern of the vehicle and the readings of light sensor*/
- TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorFear) {
+ TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorFearBoundary) {
 // For vehicle of coward pattern (+/direct)
 
    // Boundary condition:
@@ -62,19 +62,26 @@ class MotionHandlerRobotTest : public ::testing::Test {
    motion_handler->UpdateVelocitybySensor(lightsensor);
    EXPECT_EQ(motion_handler->get_velocity().right, ROBOT_MAX_SPEED)
    << "\nFAIL coward case: max reading of right sensor";
+}
 
+ TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorFearEqu) {
    // Equivalence partitions:
-   // right reading is larger than left if right reading is larger
+   lightsensor->set_pattern(COWARD);
    lightsensor->set_left_reading(50);
-   lightsensor->set_right_reading(500);
+   lightsensor->set_right_reading(80);
    motion_handler->UpdateVelocitybySensor(lightsensor);
    double coward_left = motion_handler->get_velocity().left;
    double coward_right = motion_handler->get_velocity().right;
+   // right reading is larger than left if right reading is larger
    EXPECT_GT(coward_right,coward_left)
    << "\nFAIL coward case: right reading is larger than left";
+   EXPECT_EQ(motion_handler->get_velocity().right, 8)
+   << "\nFAIL coward case: right velocity when reading is (50,80)";
+   EXPECT_EQ(motion_handler->get_velocity().left, 5)
+   << "\nFAIL coward case: left velocity when reading is (50,80)";
 }
 
- TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorExplore) {
+ TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorExploreBoundary) {
 // For vehicle of explore pattern (-/crossed)
 
    // Boundary condition:
@@ -93,16 +100,23 @@ class MotionHandlerRobotTest : public ::testing::Test {
    motion_handler->UpdateVelocitybySensor(lightsensor);
    EXPECT_EQ(motion_handler->get_velocity().left, 0)
    << "\nFAIL explore case: max reading of right sensor";
+}
 
+ TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorExploreEqu) {
    // Equivalence partitions:
-   // right reading is larger than left if right reading is larger
+   lightsensor->set_pattern(EXPLORE);
    lightsensor->set_left_reading(50);
-   lightsensor->set_right_reading(500);
+   lightsensor->set_right_reading(80);
    motion_handler->UpdateVelocitybySensor(lightsensor);
    double explore_left = motion_handler->get_velocity().left;
    double explore_right = motion_handler->get_velocity().right;
+   // right reading is larger than left if right reading is larger
    EXPECT_GT(explore_right,explore_left)
    << "\nFAIL explore case: right reading is larger than left";
+   EXPECT_EQ(motion_handler->get_velocity().right, 5)
+   << "\nFAIL coward case: right velocity when reading is (50,80)";
+   EXPECT_EQ(motion_handler->get_velocity().left, 2)
+   << "\nFAIL coward case: left velocity when reading is (50,80)";
 }
 
 TEST_F(MotionHandlerRobotTest, UpdateVelocitybySensorCompare) {
