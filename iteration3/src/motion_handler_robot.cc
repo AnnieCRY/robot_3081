@@ -43,7 +43,6 @@ void MotionHandlerRobot::UpdateVelocitybySensor(Sensor* sensor) {
     clamp_vel(get_max_speed() - right_reading(sensor)));
   } else if (sensor->get_pattern().positive && sensor->get_pattern().direct) {
     // Coward
-    //std::cout << "coward";
     set_velocity(clamp_vel(left_reading(sensor)),
     clamp_vel(right_reading(sensor)));
   } else if (sensor->get_pattern().positive && !sensor->get_pattern().direct) {
