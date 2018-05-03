@@ -1,7 +1,11 @@
 # Mainpage
 # Overview
-This is a Braitenberg Vehicles simulator. The robots simulate Braitenberg vehicles which sense light and food in arena.(resource: https://en.wikipedia.org/wiki/Braitenberg_vehicle)
-There are four kinds of vehicle patterns: Coward, Love, Explore and Aggressive. In the stimulation, robots exhibit “coward” or "explore" towards light. All the robots exhibit “aggressive” towards food. The robots have four status-not hungry, hungry, really hungry and starve. When the simulation starts and after a robot consuming food, the robot is not hungry. When the robot is not hungry, it moves according to light sensors. When the robot is hungry, it moves according to either food sensor or light sensor, depending on which reading is larger. In other words, it reacts to the closer stimuli. When the robot gets really hungry, it ignores the light and go aggressively towards food. The simulation terminates when any of the robots starve.
+This is a Braitenberg Vehicles simulator. The robots simulate Braitenberg vehicles which sense light and food in arena.(resource: https://en.wikipedia.org/wiki/Braitenberg_vehicle).
+These Complex robotic behaviours can be achieved by simple control simple sensor-motor connections. There are four kinds of vehicle patterns: Coward, Love, Explore and Aggressive. 
+
+Coward pattern is implemented with positive, direct sensor-motor connections, meaning the reading from the right sensor impacts the velocity of the right wheel, and the left sensor impacts the left wheel. A positive connection means that the signal and velocity are positively correlated. Likewise, exploration is implemented with negative, crossed sensor-motor connections; Aggression is implemented with positive, crossed sensor-motor connections; Love is implemented with negative, direct sensor-motor connections. 
+
+In the stimulation, robots exhibit “coward” or "explore" towards light. All the robots exhibit “aggressive” towards food. The robots have four status-not hungry, hungry, really hungry and starve. When the simulation starts and after a robot consuming food, the robot is not hungry. When the robot is not hungry, it moves according to light sensors. When the robot is hungry, it moves according to either food sensor or light sensor, depending on which reading is larger. In other words, it reacts to the closer stimuli. When the robot gets really hungry, it ignores the light and go aggressively towards food. The simulation terminates when any of the robots starve.
 A special case is that when there is no food in the simulation. The robot will never be hungry and the simulation can be stopped only by user input.
 The food are immobile stimuli. All the other entities can pass through food.
 The light are mobile stimuli. They can pass through everything except another light and the wall. We need to handle collision between stimuli itself and between stimuli and the wall.
@@ -14,7 +18,7 @@ The light are mobile stimuli. They can pass through everything except another li
 - **graphics_arena_viewer**: The GraphicArenaViewer class initiate the arena which works as the interface of the robot world and the user, receiving user input. In the meantime, it reads the get the states of entities through arena class and draws the entities in the GUI window. The graphics environment consists primarily of a single window with robots, obstacles, and foods. All objects (except for the wall) in the environment will be drawn as circles. Inside the circle, the name of objects are shown.The sensors of robots are visible on the circle of the robot and each two sensors on the robot will move with the robot. 
 
 - **robot**: The robot class represents a robot within the arena. Robots are composed of a motion handler, amotion behavior, touch sensor, light sensor, and food sensor. These classes interact to maintain the pose (position and heading) of the robot. At each time step, we update and check the status(hungry, really hungry, starve) of the robot in order to determine which type of the stimuli it is sensing and use the wheel velocities to calculate the next pose of the robot. The behavior calculates the new pose based on wheel velocities. The touch sensor is activated when the robot collides with an object. The heading is modified after a collision to move the robot away from the other object. The handler manages the pose and update the velocity by the sensor reading and the pattern of the robot. The light sensor and the food sensor are on the same place of the robot. They are used to get the readings and tell the motion handler how to update the velocity. 
-- **sensor**: This class handle both the light and food sensors. The sensor has two main functions, update the position of themselves and calculate the reading. The sensor gets the position and radius of the stimuli from notification and get the position of the robot by calling the update in the robot class. The reading then will be got by the robot in order to determine its motion. An additional function of food sensor is that the sensor class would check if a robot consumes food by the distance and set the attribute ```food_consumption```.
+- **sensor**: This class handles both the light and food sensors. The sensor has two main functions, update the position of themselves and calculate the reading. The sensor gets the position and radius of the stimuli from notification and get the position of the robot by calling the sensor’s update method in the robot class. The reading then will be got by the robot in order to determine its motion. An additional function of food sensor is that the sensor class would check if a robot consumes food by the distance and set the attribute ```food_consumption```.
 
 
 ### data structure
@@ -40,6 +44,13 @@ The light are mobile stimuli. They can pass through everything except another li
     It can be expanded by ```RegisterSensor```.
 
 ### design pattern
+- **The Model-View-Controller**
+
+    Arena is the Model component which corresponds to all the related logic and data. It creates the entities according to the configuration in viewer and handle collision in the arena.
+    
+    The graphic arena viewer is used for all the UI logic of the application. It includes the sliders, buttons and arena simulation layout that the user interacts with.
+    
+    Controller act as an interface between arena and graphic viewer. The viewer contains the main loop that keeps it live, but at each update, the viewer sends a message to the controller to update its time. Other types of communication between Arena and Viewer include user input via the Viewer, game status from arena to the viewer.
 - **Observer pattern**
 
      In this iteration, I take all stimuli (light and food) as subjects, and all sensors as observers. Each robot will have both light and food sensors at the same place in addition to touch sensors from iteration 1. When simulation starts, these sensors will register as observers in Arena for their respective stimuli. We have 10 robots, 4 foods and 4 lights, thus, 10 light sensors will register as a sensors’ list in each four light and 10 food sensors will register as a sensors’ list in each four foods. 
@@ -52,6 +63,7 @@ The light are mobile stimuli. They can pass through everything except another li
     Strategy pattern is utilized to implement how arena entities handle their motion. We have light, robot, which is mobile entity and base, which is immobile. All of the entities have to be able to reset, update each timestep and get their names. These are the behaviors that stays the same. The other behaviors like handle collision, get starve will change from entity to entity.
 
     We use arena mobile entity and arena immobile entity as an interface rather than implementation directly in light and robot. To create a specific implementation of an entity, we will extend the Arena Entity class and the Arena Immobile or Mobile Entity class, and in this way have access to the is_mobile, get_touch_sensor functions. This successfully separates the different behavior of arena entities. The diagram below gives an overhead view of how we implement the strategy pattern.
+    
 
 ### how to contribute
 
@@ -81,6 +93,7 @@ GUI controls for configuring:
 - the number of food stimuli 
 
     A slider for specifying the number of food in a simulation. The range is 0 to 10. The default value is 5. When no food is selected, the input of this slider will be ignored.
+ 
 
 ### how to operate the simulator
 
@@ -91,5 +104,6 @@ GUI controls for configuring:
 5. Press start button, and new simulation will start.
 6. Press pause button whenever you want to pause the simulation.
 7. If you want to change the configuration, go back to 3.
+
 
 
