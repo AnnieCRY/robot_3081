@@ -92,7 +92,7 @@ class SensorTest : public ::testing::Test {
     << "\nFAIL update left sensor position";
 };
 
-// Boundary: heading 40
+// Boundary: heading -40
  TEST_F(SensorTest, SensorUpdateHeadingNeg40) {
     lightsensor->update({20, 0, -40});
     csci3081::Pose r_pos = lightsensor->get_right_position();
@@ -147,6 +147,7 @@ TEST_F(SensorTest, SensorCalculateReadingbyDistance) {
 /* test calculateReading() which calculate the left anf right reading
  * according to the distances between every stimulis and sensors.
  */
+// one close light
 TEST_F(SensorTest, SensorCalculateReadingClose) {
   // boundry case: when the center of robot overlap with the stimulis,
   // reading should be maximum
@@ -168,6 +169,7 @@ TEST_F(SensorTest, SensorCalculateReadingClose) {
     << "\nFAIL set right reading to max when robot is in light";
 };
 
+// one far light
 TEST_F(SensorTest, SensorCalculateReadingfar) {
   lightsensor->update({0, 0, 0});
   lightsensor->set_left_reading(0);
@@ -178,6 +180,43 @@ TEST_F(SensorTest, SensorCalculateReadingfar) {
   EXPECT_GT(1, lightsensor->get_right_reading())
     << "\nFAIL right reading is small when very far";
 };
+
+// 2+ light boundary condition
+TEST_F(SensorTest, SensorCalculateReadingMoreLightsBoundary) {
+  // boundry case: four lights are close to the robot
+  lightsensor->update({50, 50, 0});
+  lightsensor->set_left_reading(0);
+  lightsensor->set_right_reading(0);
+  lightsensor->calculateReading({50, 50}, 30);
+  lightsensor->calculateReading({60, 50}, 30);
+  lightsensor->calculateReading({50, 40}, 30);
+  lightsensor->calculateReading({30, 40}, 30);
+  EXPECT_EQ(lightsensor->get_left_reading(), MAX_READING)
+    << "\nFAIL left reading is max when several lights are lose to robot";
+  EXPECT_EQ(lightsensor->get_right_reading(), MAX_READING)
+    << "\nFAIL right reading is max when several lights are lose to robot";
+};
+// 2+ light equivalence partitions
+TEST_F(SensorTest, SensorCalculateReadingMoreLights) {
+  // equivalence case: four lights are in the arena, not close to the robot
+  // the reading is between 0 to max
+  lightsensor->update({50, 50, 0});
+  lightsensor->set_left_reading(0);
+  lightsensor->set_right_reading(0);
+  lightsensor->calculateReading({0, 1000}, 30);
+  lightsensor->calculateReading({200, 50}, 30);
+  lightsensor->calculateReading({500, 400}, 30);
+  lightsensor->calculateReading({50, 40}, 30);
+  EXPECT_GT(MAX_READING, lightsensor->get_left_reading())
+    << "\nFAIL left reading is less than max";
+  EXPECT_GT(MAX_READING, lightsensor->get_right_reading())
+    << "\nFAIL right reading is less than max";
+  EXPECT_GT(lightsensor->get_left_reading(), 0)
+    << "\nFAIL left reading is larger than zero";
+  EXPECT_GT(lightsensor->get_right_reading(), 0)
+    << "\nFAIL right reading is larger than zero";
+};
+
 TEST_F(SensorTest, SensorCalculateReadingAccumulate) {
   // The reading is the sum of all readings of each light,
   // it accumulates until the max reading.
@@ -190,6 +229,7 @@ TEST_F(SensorTest, SensorCalculateReadingAccumulate) {
    << "\n FAIL accumulate right reading";
  };
 
+// test max for boundry
  TEST_F(SensorTest, SensorCalculateReadingMax) {
   // boundry case: reading can't be larger than MAX_READING
   lightsensor->set_left_reading(MAX_READING -1);
@@ -198,6 +238,17 @@ TEST_F(SensorTest, SensorCalculateReadingAccumulate) {
   EXPECT_EQ(lightsensor->get_left_reading(), MAX_READING)
   << "\n FAIL max left reading ";
   EXPECT_EQ(lightsensor->get_right_reading(), MAX_READING)
+  << "\n FAIL max right reading";
+};
+
+// test 0 for boundry
+ TEST_F(SensorTest, SensorCalculateReadingZero) {
+  // boundry case: reading is zero only when there is no light
+  lightsensor->set_left_reading(0);
+  lightsensor->set_right_reading(0);
+  EXPECT_EQ(lightsensor->get_left_reading(), 0)
+  << "\n FAIL max left reading ";
+  EXPECT_EQ(lightsensor->get_right_reading(), 0)
   << "\n FAIL max right reading";
 };
 
